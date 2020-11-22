@@ -1,4 +1,5 @@
 import document from "document";
+import { gettext } from "i18n";
 
 const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -9,9 +10,9 @@ export function zeroPad(i: number): string {
 }
 
 export function formatDate(date: Date): string {
-    const weekday = weekdays[date.getDay()];
+    const weekday = gettext(weekdays[date.getDay()]);
     const dayStr = `${date.getDate()}`;
-    const monStr = months[date.getMonth()];
+    const monStr = gettext(months[date.getMonth()]);
     let suffix: string;
     switch (dayStr[dayStr.length - 1]) {
         case "1":

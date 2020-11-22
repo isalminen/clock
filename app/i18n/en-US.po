@@ -1,0 +1,65 @@
+msgid "Jan"
+msgstr "Jan"
+
+msgid "Feb"
+msgstr "Feb"
+
+msgid "Mar"
+msgstr "Mar"
+
+msgid "Apr"
+msgstr "Apr"
+
+msgid "May"
+msgstr "May"
+
+msgid "Jun"
+msgstr "Jun"
+
+msgid "Jul"
+msgstr "Jul"
+
+msgid "Aug"
+msgstr "Aug"
+
+msgid "Sep"
+msgstr "Sep"
+
+msgid "Oct"
+msgstr "Oct"
+
+msgid "Nov"
+msgstr "Nov"
+
+msgid "Dec"
+msgstr "Dec"
+
+msgid "Sun"
+msgstr "Sunday"
+
+msgid "Mon"
+msgstr "Monday"
+
+msgid "Tue"
+msgstr "Tuesday"
+
+msgid "Wed"
+msgstr "Wednesday"
+
+msgid "Thu"
+msgstr "Thursday"
+
+msgid "Fri"
+msgstr "Friday"
+
+msgid "Sat"
+msgstr "Saturday"
+
+msgid "Sunrise"
+msgstr "Sunrise"
+
+msgid "Daylight_left"
+msgstr "Daylight left"
+
+msgid "Until_dawn"
+msgstr "Until dawn"

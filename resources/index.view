@@ -11,10 +11,17 @@
     <section class="sensor_data" id="sensor3g"><image href="stairs.png" class="icon sensoricon"/><text id="sensor_3" class="sensor_data"/></section>
   </section>
   <section id="suninfo">
-    <image href="sunrise.png" class="icon" id="leftsunicon" />
-    <text id="leftsuntime" />
-    <text id="daynightlength" />
-    <text id="rightsuntime" />
-    <image href="sunset.png" class="icon" id="rightsunicon" />
+    <section id="sunlabels">
+      <text id="left_label" />
+      <text id="time_left_label" />
+      <text id="right_label" />
+    </section>
+    <section>
+      <image href="sunrise.png" class="icon" id="leftsunicon" />
+      <text id="leftsuntime" />
+      <text id="daynightlength" />
+      <text id="rightsuntime" />
+      <image href="sunset.png" class="icon" id="rightsunicon" />
+    </section>
   </section>
 </svg>

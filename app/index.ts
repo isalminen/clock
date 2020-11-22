@@ -1,11 +1,11 @@
 import clock from "clock";
+import { gettext } from 'i18n';
 import { preferences } from "user-settings";
 import * as util from "../common/utils";
+import { selectActivities } from "./activities";
 
 // Update the clock every minute
 clock.granularity = "minutes";
-
-// Update the <text> element every tick with the current time
 clock.ontick = (evt) => {
   const today: Date = evt.date;
   const hours = today.getHours();
@@ -14,12 +14,17 @@ clock.ontick = (evt) => {
   util.setUIElementText("hours", `${hrStr}`);
   util.setUIElementText("minutes", `${mins}`);
   util.setUIElementText("date", `${util.formatDate(today)}`);
+  const activities = selectActivities(["heart-rate", "steps", "floors"]);
+  util.setUIElementText("sensor_1", `${activities["heart-rate"].value ? activities["heart-rate"].value : "--"}`);
+  util.setUIElementText("sensor_2", `${activities["steps"].value ? activities["steps"].value : "--"}`);
+  util.setUIElementText("sensor_3", `${activities["floors"].value ? activities["floors"].value : "--"}`);
 }
 
+// set labels
+util.setUIElementText("left_label", gettext("Sunrise"));
+util.setUIElementText("time_left_label", gettext("Daylight_left"));
+util.setUIElementText("right_label", gettext("Sunset"));
 // demo content
 util.setUIElementText("leftsuntime", "08:32");
 util.setUIElementText("daynightlength", "10h 32m");
 util.setUIElementText("rightsuntime", "19:04");
-util.setUIElementText("sensor_1", "64");
-util.setUIElementText("sensor_2", "10 232");
-util.setUIElementText("sensor_3", "31");

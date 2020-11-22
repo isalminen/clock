@@ -5,6 +5,7 @@
     "**/*.ts"
   ],
   "compilerOptions": {
-    "lib": ["DOM", "ES2015"]
+    "lib": ["ES2015"],
+    "typeRoots": ["./node_modules/@types", "./node_modules/fitbit-sdk-types/types"],
   }
 }
