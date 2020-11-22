@@ -1,0 +1,20 @@
+<svg class="background">
+  <image href="black-bg.png" />
+  <text id="date" />
+  <section id="time">
+    <text id="hours" />
+    <text id="minutes" />
+  </section>
+  <section id="sensors">
+    <section class="sensor_data" id="sensor1g"><image href="heart.png" class="icon sensoricon"/><text id="sensor_1" class="sensor_data"/></section>
+    <section class="sensor_data" id="sensor2g"><image href="steps.png" class="icon sensoricon"/><text id="sensor_2" class="sensor_data"/></section>
+    <section class="sensor_data" id="sensor3g"><image href="stairs.png" class="icon sensoricon"/><text id="sensor_3" class="sensor_data"/></section>
+  </section>
+  <section id="suninfo">
+    <image href="sunrise.png" class="icon" id="leftsunicon" />
+    <text id="leftsuntime" />
+    <text id="daynightlength" />
+    <text id="rightsuntime" />
+    <image href="sunset.png" class="icon" id="rightsunicon" />
+  </section>
+</svg>

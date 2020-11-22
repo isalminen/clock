@@ -1,0 +1,149 @@
+.background {
+  viewport-fill: gray;
+}
+
+#time {
+  x: 10;
+  y: 30%;
+  width: 35%;
+  height: 50%;
+}
+
+#sensors {
+  x: 50%+10;
+  y: 25%;
+  width: 50%;
+  height: 50%;
+  fill: white;
+}
+
+.sensoricon {
+  x: 0;
+  y: 0;
+}
+
+#sensor1g {
+  x: 0%;
+  y: 0%;
+  width: 100%;
+  height: 33%;
+}
+
+.sensor_data{
+  x: 50;
+  y: 50%;
+  text-length: 8;
+  text-anchor: start;
+  height: 100%;
+  fill: white;
+}
+
+#sensor2g {
+  x: 0%;
+  y: 33%;
+  width: 100%;
+  height: 33%;
+}
+
+#sensor3g {
+  x: 0%;
+  y: 66%;
+  width: 100%;
+  height: 33%;
+}
+
+#hours {
+  font-size: 100;
+  font-family: System-Regular;
+  text-length: 4;
+  text-anchor: end;
+  x: 100%;
+  y: 25%;
+  width: 100%;
+  height: 50%;
+  fill: white;
+}
+
+#minutes {
+  font-size: 100;
+  font-weight: bold;
+  font-family: System-Bold;
+  text-length: 4;
+  text-anchor: end;
+  x: 100%;
+  y: 75%;
+  width: 100%;
+  height: 50%;
+  fill: white;
+}
+
+#date {
+  font-size: 25;
+  font-family: System-Regular;
+  text-length: 24;
+  text-anchor: middle;
+  x: 50%;
+  y: 10%;
+  width: 100%;
+  height: 15%;
+  fill: white;
+}
+
+.icon {
+  width: 32;
+  height: 32;
+  fill: white;
+}
+
+#suninfo {
+  width: 100%;
+  height: 25%;
+  x: 10;
+  y: 75%;
+}
+
+#leftsunicon {
+  x: 10;
+  y: 20%;
+}
+
+#rightsunicon {
+  x: 80%;
+  y: 20%;
+}
+
+#daynightlength {
+  font-size: 16;
+  font-family: System-Regular;
+  text-length: 12;
+  text-anchor: start;
+  x: 20%+65;
+  y: 50%;
+  width:33%;
+  height: 100%;
+  fill: white;
+}
+
+#leftsuntime {
+  font-size: 20;
+  font-family: System-Regular;
+  text-length: 24;
+  text-anchor: start;
+  x: 55;
+  y: 50%;
+  width: 20%;
+  height: 100%;
+  fill: white;
+}
+
+#rightsuntime {
+  font-size: 20;
+  font-family: System-Regular;
+  text-length: 24;
+  text-anchor: start;
+  x: 65%;
+  y: 50%;
+  width: 33%;
+  height: 100%;
+  fill: white;
+}
