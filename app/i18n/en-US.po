@@ -63,3 +63,6 @@ msgstr "Daylight left"
 
 msgid "Until_dawn"
 msgstr "Until dawn"
+
+msgid "No_location"
+msgstr "No location"

@@ -1,5 +1,5 @@
 .background {
-  viewport-fill: gray;
+  viewport-fill: black;
 }
 
 #time {
@@ -54,7 +54,7 @@
 
 #hours {
   font-size: 100;
-  font-family: System-Regular;
+  font-family: System-Light;
   text-length: 4;
   text-anchor: end;
   x: 100%;
@@ -92,7 +92,7 @@
 .icon {
   width: 32;
   height: 32;
-  fill: white;
+  opacity: 1;
 }
 
 #suninfo {
@@ -112,17 +112,21 @@
 #leftsunicon {
   x: 10;
   y: 20%;
+  width: 42;
+  height: 32;
 }
 
 #rightsunicon {
   x: 80%;
   y: 20%;
+  width: 42;
+  height: 32;
 }
 
 #time_left_label {
-  x: 20%+65;
+  x: $+5;
   y: 0;
-  width: 33%;
+  width: 25%;
   height: 20%;
   text-anchor: start;
   fill: white;
@@ -135,9 +139,9 @@
   font-family: System-Regular;
   text-length: 12;
   text-anchor: start;
-  x: 20%+65;
+  x: $+5;
   y: 50%;
-  width:33%;
+  width:25%;
   height: 100%;
   fill: white;
 }
@@ -166,7 +170,7 @@
 }
 
 #right_label {
-  x: 65%;
+  x: $+5;
   y: 0;
   width: 33%;
   height: 20%;
@@ -181,7 +185,7 @@
   font-family: System-Regular;
   text-length: 24;
   text-anchor: start;
-  x: 65%;
+  x: $+5;
   y: 50%;
   width: 33%;
   height: 100%;

@@ -1,6 +1,13 @@
-<a href="https://www.freepik.com/vectors/background">Background vector created by starline - www.freepik.com</a>
-Sihan Liu - sunrise/sunset icons - https://www.iconfinder.com/iconsets/weather-line-5
-¨
+# Bacground Images
 <a href='https://www.freepik.com/vectors/background'>Background vector created by starline - www.freepik.com</a>
 https://www.iconfinder.com/becris - heart
 <a href='https://www.freepik.com/photos/background'>Background photo created by kjpargeter - www.freepik.com</a> star bg
+<a href="https://www.freepik.com/photos/background">Background photo created by dashu83 - www.freepik.com</a> - black bg
+<a href='https://www.freepik.com/vectors/background'>Background vector created by pikisuperstar - www.freepik.com</a>
+<a href='https://www.freepik.com/vectors/background'>Background vector created by freepik - www.freepik.com</a>
+
+# Icons
+Icons made by <a href="https://www.flaticon.com/authors/pixel-perfect" title="Pixel perfect">Pixel perfect</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+
+# Sunrise and sunset calculations
+Sunrise/sunset script. By Matt Kane. Adopted for NPM use by Alexey Udivankin. Licence LGPL

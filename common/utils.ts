@@ -37,3 +37,15 @@ export function setUIElementText(id: string, value: string) {
     }
 }
   
+export function lengthToHrMin(duration: number): string {
+    const hrs = Math.floor(duration / 3600000);
+    const mins = Math.floor((duration - (hrs * 3600000)) / 60000);
+    return `${hrs}h ${mins}m`;
+}
+
+export function setIcon(id: string, icon: string): void {
+    const el = document.getElementById(id);
+    if (el) {
+        (el as any).href = icon;
+    }
+}

@@ -1,5 +1,5 @@
 <svg class="background">
-  <image href="black-bg.png" />
+  <image href="starry-bg.png" />
   <text id="date" />
   <section id="time">
     <text id="hours" />
@@ -17,11 +17,11 @@
       <text id="right_label" />
     </section>
     <section>
-      <image href="sunrise.png" class="icon" id="leftsunicon" />
+      <image href="sunrise.png" id="leftsunicon" />
       <text id="leftsuntime" />
       <text id="daynightlength" />
       <text id="rightsuntime" />
-      <image href="sunset.png" class="icon" id="rightsunicon" />
+      <image href="sunset.png"  id="rightsunicon" />
     </section>
   </section>
 </svg>
