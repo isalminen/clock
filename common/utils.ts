@@ -1,5 +1,6 @@
 import document from "document";
 import { gettext } from "i18n";
+import { SunEvents } from './sunevents';
 
 const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -48,4 +49,25 @@ export function setIcon(id: string, icon: string): void {
     if (el) {
         (el as any).href = icon;
     }
+}
+
+export function setSuntimes(sunEvents: SunEvents): void {
+    if (sunEvents[0].type === "sunrise") {
+        setIcon("leftsunicon", "sunrise.png");
+        setIcon("rightsunicon", "sunset.png");
+        setUIElementText("left_label", gettext("Sunrise"));
+        setUIElementText("right_label", gettext("Sunset"));
+        setUIElementText("time_left_label", gettext("Daylight_left"));
+      } else {
+        setIcon("leftsunicon", "sunset.png");
+        setIcon("rightsunicon", "sunrise.png");
+        setUIElementText("left_label", gettext("Sunset"));
+        setUIElementText("right_label", gettext("Sunrise"));
+        setUIElementText("time_left_label", gettext("Until_dawn"));      
+    }
+    setUIElementText("leftsuntime",
+    `${zeroPad(sunEvents[0].time.getHours())}:${zeroPad(sunEvents[0].time.getMinutes())}`);
+    setUIElementText("rightsuntime",
+    `${zeroPad(sunEvents[1].time.getHours())}:${zeroPad(sunEvents[1].time.getMinutes())}`);
+    setUIElementText("daynightlength", `${lengthToHrMin(sunEvents[1].time.valueOf() - Date.now())}`)
 }

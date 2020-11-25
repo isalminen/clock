@@ -6,6 +6,7 @@ import * as util from "../common/utils";
 import { selectActivities } from "./activities";
 import { getSunEvents, SunEvents } from "../common/sunevents";
 
+const HOUR = 3600 * 1000;
 // set the default sun icons & labels
 util.setIcon("leftsunicon", "sunrise.png");
 util.setIcon("rightsunicon", "sunset.png");
@@ -14,6 +15,7 @@ util.setUIElementText("right_label", gettext("Sunset"));
 util.setUIElementText("time_left_label", gettext("Daylight_left"));
 
 let sunEvents: SunEvents;
+let lastPosRequest = 0;
 
 // Update the clock every minute
 clock.granularity = "minutes";
@@ -37,28 +39,13 @@ clock.ontick = (evt) => {
   // get position and caluclate sunset and sunrise times
   // we probably should cache this data since it is unlikely
   // to have changed much between two ticks
-  geolocation.getCurrentPosition((pos) => {
-    sunEvents = getSunEvents({lat: pos.coords.latitude, lon: pos.coords.longitude});
-    if (sunEvents[0].type === "sunrise") {
-      util.setIcon("leftsunicon", "sunrise.png");
-      util.setIcon("rightsunicon", "sunset.png");
-      util.setUIElementText("left_label", gettext("Sunrise"));
-      util.setUIElementText("right_label", gettext("Sunset"));
-      util.setUIElementText("time_left_label", gettext("Daylight_left"));
-    } else {
-      util.setIcon("leftsunicon", "sunset.png");
-      util.setIcon("rightsunicon", "sunrise.png");
-      util.setUIElementText("left_label", gettext("Sunset"));
-      util.setUIElementText("right_label", gettext("Sunrise"));
-      util.setUIElementText("time_left_label", gettext("Until_dawn"));      
-    }
-    util.setUIElementText("leftsuntime",
-      `${util.zeroPad(sunEvents[0].time.getHours())}:${util.zeroPad(sunEvents[0].time.getMinutes())}`);
-    util.setUIElementText("rightsuntime",
-      `${util.zeroPad(sunEvents[1].time.getHours())}:${util.zeroPad(sunEvents[1].time.getMinutes())}`);
-    
-  }, (err) => {
-    console.log(err);
-  }, {enableHighAccuracy: false});
-
+  if (lastPosRequest + HOUR < Date.now()) {
+    lastPosRequest = Date.now();
+    geolocation.getCurrentPosition((pos) => {
+      sunEvents = getSunEvents({lat: pos.coords.latitude, lon: pos.coords.longitude});
+      util.setSuntimes(sunEvents);      
+    }, (err) => {
+      console.log(err);
+    }, {enableHighAccuracy: false, maximumAge: Number.MAX_SAFE_INTEGER});
+  }
 }
