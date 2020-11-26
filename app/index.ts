@@ -1,10 +1,10 @@
 import clock from "clock";
 import { gettext } from 'i18n';
-import { geolocation } from "geolocation";
 import { preferences } from "user-settings";
 import * as util from "../common/utils";
 import { selectActivities } from "./activities";
 import { getSunEvents, SunEvents } from "../common/sunevents";
+import { requestLocation } from "./messaging";
 
 const HOUR = 3600 * 1000;
 // set the default sun icons & labels
@@ -36,16 +36,13 @@ clock.ontick = (evt) => {
     util.setUIElementText("daynightlength", `${util.lengthToHrMin(sunEvents[1].time.valueOf() - Date.now())}`) :
     util.setUIElementText("daynightlength",  gettext("No_location"));
 
-  // get position and caluclate sunset and sunrise times
-  // we probably should cache this data since it is unlikely
-  // to have changed much between two ticks
   if (lastPosRequest + HOUR < Date.now()) {
     lastPosRequest = Date.now();
-    geolocation.getCurrentPosition((pos) => {
-      sunEvents = getSunEvents({lat: pos.coords.latitude, lon: pos.coords.longitude});
+    console.log("Request location from the companion");
+    requestLocation((pos) => {
+      console.log("Got pos: " + JSON.stringify(pos));
+      sunEvents = getSunEvents(pos);
       util.setSuntimes(sunEvents);      
-    }, (err) => {
-      console.log(err);
-    }, {enableHighAccuracy: false, maximumAge: Number.MAX_SAFE_INTEGER});
+    });
   }
 }
