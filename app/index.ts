@@ -6,7 +6,7 @@ import { selectActivities } from "./activities";
 import { getSunEvents, SunEvents } from "../common/sunevents";
 import { requestLocation } from "./messaging";
 
-const HOUR = 3600 * 1000;
+const HOUR = 3600 * 1000 * 0;
 // set the default sun icons & labels
 util.setIcon("leftsunicon", "sunrise.png");
 util.setIcon("rightsunicon", "sunset.png");

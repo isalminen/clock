@@ -2,9 +2,9 @@ import * as messaging from "messaging";
 import { CompanionRequest } from "../common/messaging";
 import { Location } from "../common/sunevents";
 
-export type LocationListener = (loc: Location) => void;
+export type LocationCallback = (loc: Location) => void;
 
-const listeners: { location: LocationListener[]} = {
+const listeners: { location: LocationCallback[]} = {
     location: [],
 }
 
@@ -19,21 +19,24 @@ messaging.peerSocket.addEventListener("message", (evt) => {
     console.log("Got a message from the companion: " + JSON.stringify(evt.data));
     if (evt.data?.response === "location") {
         const pos = evt.data.data;
-        listeners.location.forEach(l => l({lat: pos.coords.latitude, lon: pos.coords.longitude}));
+        while(listeners.location.length > 0) {
+            const listener = listeners.location.shift();
+            listener({lat: pos.coords.latitude, lon: pos.coords.longitude});
+        }
     }
 });
 
-export const requestLocation = (listener: LocationListener) => {
-    // add to listeners if we don't have it yet
-    // todo: unsubscribe
-    if (listeners.location.indexOf(listener) < 0) {
-        console.log("Adding listener");
-        const size = listeners.location.push(listener);
-        console.log("Listener count: " + size);
-    }
+
+messaging.peerSocket.addEventListener("error", (err) => {
+    console.log("Conn error: " + JSON.stringify(err));
+});
+
+export const requestLocation = (cb: LocationCallback) => {
+    const size = listeners.location.push(cb);
+    console.log("Listener count: " + size);
 
     if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
-        console.log("Connextion already open");
+        console.log("Connection already open");
         sendMessage<"location", void>({request: "location"});
     } else {
         console.log("Open the connection");

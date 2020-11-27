@@ -3,9 +3,10 @@ import { geolocation } from "geolocation";
 
 function sendLocation(pos) {
     if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
+        console.log("Sending");
         messaging.peerSocket.send(pos);
     } else {
-        console.error("sendLocation: Connection is not open");
+        console.log("sendLocation: Connection is not open");
     }
 }
 
@@ -23,6 +24,14 @@ messaging.peerSocket.addEventListener("message", (evt) => {
         (err) => {
           console.log(err);
         },
-        {enableHighAccuracy: false, maximumAge: Infinity});
+        {maximumAge: Infinity});
     }
+});
+
+messaging.peerSocket.addEventListener("error", (err) => {
+    console.log(err);
+});
+
+messaging.peerSocket.addEventListener("open", () => {
+    console.log("Connection open");
 });
