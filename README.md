@@ -1,4 +1,4 @@
-# clock
+# Work In Progress
 Simple Fitbit Sense/Versa 3 watch face
 
 # Install
