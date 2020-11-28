@@ -41,21 +41,20 @@ display.addEventListener("change", () => {
 
 export function selectActivities(activities: [ActivityName, ActivityName, ActivityName]): Activities {
     const values = activities.reduce((acc, current) => {
+        acc[current] = {
+            value: undefined,
+        };
         switch(current) {
             case "steps":
                 if (appbit.permissions.granted("access_activity") &&
                     today.adjusted.steps) {
-                        acc[current] = {
-                            value: today.adjusted.steps,
-                        }
+                        acc[current].value = today.adjusted.steps;
                 }
                 break;
             case "floors":
                 if (appbit.permissions.granted("access_activity") && 
                     today.local.elevationGain) {
-                        acc[current] = {
-                            value: today.adjusted.elevationGain,
-                        }
+                        acc[current].value = today.adjusted.elevationGain;
                 }
                 break;
             case "heart-rate":
@@ -66,9 +65,7 @@ export function selectActivities(activities: [ActivityName, ActivityName, Activi
                     });
                     hrm.start();
                 }
-                acc[current] = {
-                    value: latestHeartRate,
-                }
+                acc[current].value = latestHeartRate;
                 break;
             default:
                 // nothing

@@ -2,6 +2,7 @@ import { CompanionResponse, Location } from "../common/types";
 import { send, Callback } from "./messaging";
 
 const HOUR = 3600 * 1000;
+const MINUTE = 60 * 1000;
 
 export class LocationProvider {
     private static instance: LocationProvider = undefined;
@@ -25,27 +26,29 @@ export class LocationProvider {
     }
 
     private locationUpdated(response: CompanionResponse) {
-        if (response.response === "location") {
-            this.latestPos = {
-                lat: response.data.coords.latitude,
-                lon: response.data.coords.longitude,
-            };
-            this.lastPosUpdate = Date.now();
+        if (response?.response === "location") {
+            if (response.data?.coords) {
+                this.latestPos = {
+                    lat: response.data.coords?.latitude,
+                    lon: response.data.coords?.longitude,
+                };
+                this.lastPosUpdate = Date.now();
+            }
         }
     }
 
     private subscribeToLocations() {
-        send({request: "location"}, this.locationUpdated);
-        setInterval(() => {
-            console.log("Asking a location from the companion");
-            send({request: "location"}, (err, loc) => {
-                if (err) {
-                    console.log("Loc comm error: " + JSON.stringify(err));
-                } else {
-                    console.log("Loc update: " + JSON.stringify(loc));
-                    this.locationUpdated(loc);
-                }
-            });
-        }, HOUR);
+        console.log("Asking a location from the companion");
+        send({request: "location"}, (err, loc) => {
+            if (err) {
+                console.log("Loc comm error: " + JSON.stringify(err));
+            } else {
+                console.log("Loc update: " + JSON.stringify(loc));
+                this.locationUpdated(loc);
+            }
+        });
+        setTimeout(() => {
+            this.subscribeToLocations();
+        }, this.latestPos ? HOUR : MINUTE);
     }
 }

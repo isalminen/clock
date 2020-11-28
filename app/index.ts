@@ -27,8 +27,8 @@ clock.ontick = (evt) => {
   util.setUIElementText("date", `${util.formatDate(today)}`);
   const activities = selectActivities(["heart-rate", "steps", "floors"]);
   util.setUIElementText("sensor_1", `${activities["heart-rate"].value ? activities["heart-rate"].value : "--"}`);
-  util.setUIElementText("sensor_2", `${activities["steps"].value ? activities["steps"].value : "--"}`);
-  util.setUIElementText("sensor_3", `${activities["floors"].value ? activities["floors"].value : "--"}`);
+  util.setUIElementText("sensor_2", `${activities["steps"].value ? activities["steps"].value : "0"}`);
+  util.setUIElementText("sensor_3", `${activities["floors"].value ? activities["floors"].value : "0"}`);
 
   const pos = LocationProvider.getInstance().getLatestPos();
   if (pos) {

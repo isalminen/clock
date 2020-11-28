@@ -16,7 +16,7 @@ messaging.peerSocket.onmessage = (evt) => {
     if (evt.data?.request === "location") {
         console.log("Getting the current pos");
         geolocation.getCurrentPosition((pos) => {
-            console.log("Sending back the current location");
+            console.log("Sending back the current location: " + JSON.stringify(pos));
             sendLocation({
                 response: "location",
                 data: pos
