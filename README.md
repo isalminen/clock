@@ -16,6 +16,10 @@ be easily installed with the version 15. At least, for Windows without Windows b
 
 ## App UUID
 Remember to create your own app uuid and set it to package.json.
+```
+npx uuid
+```
+
 
 # Not yet suitable for general use
 This watch face will drain your battery pretty quickly
