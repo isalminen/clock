@@ -1,5 +1,16 @@
 import * as messaging from "messaging";
 import { geolocation } from "geolocation";
+import { me as companion } from "companion";
+
+const TIMEOUT = 50 * 1000;
+const MAX_AGE = 3600 * 1000;
+
+if (
+  !companion.permissions.granted("access_location") ||
+  !companion.permissions.granted("run_background")
+) {
+  console.error("We're not allowed to access to GPS Position!");
+}
 
 function sendLocation(pos) {
     if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
@@ -10,7 +21,6 @@ function sendLocation(pos) {
     }
 }
 
-// get position and caluclate sunset and sunrise times
 messaging.peerSocket.onmessage = (evt) => {
     console.log("Event: " + JSON.stringify(evt.data));
     if (evt.data?.request === "location") {
@@ -25,7 +35,7 @@ messaging.peerSocket.onmessage = (evt) => {
         (err) => {
           console.log(err);
         },
-        {maximumAge: Infinity});
+        {timeout: TIMEOUT, maximumAge: MAX_AGE});
     }
 };
 

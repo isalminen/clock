@@ -1,7 +1,7 @@
 import * as messaging from "messaging";
 import { CompanionRequest, CompanionResponse } from "../common/types";
 
-const TIMEOUT = 20 * 1000; // wait max a minute for a response
+const TIMEOUT = 60 * 1000; // wait max a minute for a response
 
 export type Callback = (err: any, data: CompanionResponse) => void;
 type QueueItem = {
