@@ -4,9 +4,8 @@ import { preferences } from "user-settings";
 import * as util from "../common/utils";
 import { selectActivities } from "./activities";
 import { getSunEvents, SunEvents } from "../common/sunevents";
-import { requestLocation } from "./messaging";
+import { LocationProvider } from "./location-provider";
 
-const HOUR = 3600 * 1000 * 0;
 // set the default sun icons & labels
 util.setIcon("leftsunicon", "sunrise.png");
 util.setIcon("rightsunicon", "sunset.png");
@@ -15,7 +14,6 @@ util.setUIElementText("right_label", gettext("Sunset"));
 util.setUIElementText("time_left_label", gettext("Daylight_left"));
 
 let sunEvents: SunEvents;
-let lastPosRequest = 0;
 
 // Update the clock every minute
 clock.granularity = "minutes";
@@ -32,17 +30,12 @@ clock.ontick = (evt) => {
   util.setUIElementText("sensor_2", `${activities["steps"].value ? activities["steps"].value : "--"}`);
   util.setUIElementText("sensor_3", `${activities["floors"].value ? activities["floors"].value : "--"}`);
 
-  sunEvents && sunEvents[1] ?
-    util.setUIElementText("daynightlength", `${util.lengthToHrMin(sunEvents[1].time.valueOf() - Date.now())}`) :
+  const pos = LocationProvider.getInstance().getLatestPos();
+  if (pos) {
+    sunEvents = getSunEvents(pos);
+    util.setSuntimes(sunEvents);
+    util.setUIElementText("daynightlength", `${util.lengthToHrMin(sunEvents[1].time.valueOf() - Date.now())}`);
+  } else {
     util.setUIElementText("daynightlength",  gettext("No_location"));
-
-  if (lastPosRequest + HOUR < Date.now()) {
-    lastPosRequest = Date.now();
-    console.log("Request location from the companion");
-    requestLocation((pos) => {
-      console.log("Got pos: " + JSON.stringify(pos));
-      sunEvents = getSunEvents(pos);
-      util.setSuntimes(sunEvents);      
-    });
   }
 }

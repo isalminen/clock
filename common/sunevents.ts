@@ -1,4 +1,5 @@
-import { getSunrise, getSunset } from "../common/sunrise-sunset";
+import { getSunrise, getSunset } from "./sunrise-sunset";
+import { Location } from "./types";
 
 export interface SunEvent {
     type: "sunset" | "sunrise";
@@ -6,11 +7,6 @@ export interface SunEvent {
 }
 
 export type SunEvents = [SunEvent, SunEvent];
-
-export interface Location {
-    lat: number;
-    lon: number;
-}
 
 export function getSunEvents(pos: Location): SunEvents {
     const retData: SunEvent[] = [];

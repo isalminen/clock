@@ -1,48 +1,66 @@
 import * as messaging from "messaging";
-import { CompanionRequest } from "../common/messaging";
-import { Location } from "../common/sunevents";
+import { CompanionRequest, CompanionResponse } from "../common/types";
 
-export type LocationCallback = (loc: Location) => void;
+const TIMEOUT = 20 * 1000; // wait max a minute for a response
 
-const listeners: { location: LocationCallback[]} = {
-    location: [],
+export type Callback = (err: any, data: CompanionResponse) => void;
+type QueueItem = {
+    msg: CompanionRequest;
+    cb: Callback;
+}
+const messageQueue: QueueItem[] = [];
+let waitingResponse = false;
+let timer = undefined;
+
+function sendMessage() {
+    console.log("Message queue size: " + messageQueue.length);
+    if (waitingResponse || messageQueue.length === 0) {
+        return;
+    }
+    console.log("Sending...");
+    waitingResponse = true;
+    const msg = messageQueue[0];
+    if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
+        messaging.peerSocket.send(msg.msg);
+    }
+
+    timer = setTimeout(() => {
+        console.log("Timeout");
+        handleResponse("Timeout while waiting for the response", null);
+    }, TIMEOUT);
 }
 
-function sendMessage<T,U>(msg: CompanionRequest<T,U>) {
-    if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
-      // Send the data to peer as a message
-      messaging.peerSocket.send(msg);
+function handleResponse(err: any, data: any): void {
+    if (timer) {
+        clearTimeout(timer);
+        timer = undefined;
     }
+    const item = messageQueue.shift();
+    if (item) {
+        item.cb(err, data);
+    }
+    waitingResponse = false;
+    setTimeout(sendMessage, 0);
 }
 
 messaging.peerSocket.addEventListener("message", (evt) => {
     console.log("Got a message from the companion: " + JSON.stringify(evt.data));
-    if (evt.data?.response === "location") {
-        const pos = evt.data.data;
-        while(listeners.location.length > 0) {
-            const listener = listeners.location.shift();
-            listener({lat: pos.coords.latitude, lon: pos.coords.longitude});
-        }
-    }
+    handleResponse(null, evt.data);
 });
-
 
 messaging.peerSocket.addEventListener("error", (err) => {
     console.log("Conn error: " + JSON.stringify(err));
+    handleResponse(err, null);
 });
 
-export const requestLocation = (cb: LocationCallback) => {
-    const size = listeners.location.push(cb);
-    console.log("Listener count: " + size);
-
-    if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
-        console.log("Connection already open");
-        sendMessage<"location", void>({request: "location"});
-    } else {
+export function send(msg: CompanionRequest, cb: Callback): void {
+    const size = messageQueue.unshift({msg, cb});
+    if (messaging.peerSocket.readyState !== messaging.peerSocket.OPEN) {
         console.log("Open the connection");
         messaging.peerSocket.addEventListener("open", (evt) => {
-            sendMessage<"location", void>({request: "location"});
+            sendMessage();
         });
+    } else {
+        sendMessage();
     }
 }
-
