@@ -20,6 +20,14 @@ Remember to create your own app uuid and set it to package.json.
 npx uuid
 ```
 
+## Here API key
+The watch face uses Here geocoding API to get the location coordinates when the location
+is given as a name. You need to make your own account and get an apikey from Here. Create
+a file `companion/apikey.ts` with the content:
+```
+export const apikey = "Your apikey here";
+```
+
 
 # Not yet suitable for general use
 This watch face will drain your battery pretty quickly
