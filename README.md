@@ -21,14 +21,14 @@ npx uuid
 ```
 
 ## Here API key
-The watch face uses Here geocoding API to get the location coordinates when the location
-is given as a name. You need to make your own account and get an apikey from Here. Create
+The watch face uses HERE geocoding API to get the location coordinates when the location
+is given as a name. You need to make your own account and get an apikey from HERE. Create
 a file `companion/apikey.ts` with the content:
 ```
 export const apikey = "Your apikey here";
 ```
+HERE documentation: https://developer.here.com/products/geocoding-and-search
 
-
-# Not yet suitable for general use
+# Not yet suitable for a general use
 This watch face will drain your battery pretty quickly
  
