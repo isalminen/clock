@@ -57,7 +57,7 @@ async function getLocation(): Promise<CompanionResponse|undefined> {
             },
             {timeout: TIMEOUT, maximumAge: MAX_AGE});
         } else {
-            if (resolvedLocation.latitude && resolvedLocation.longitude) {
+            if (resolvedLocation?.latitude && resolvedLocation?.longitude) {
                 console.log("Return the resolved location");
                 console.log(JSON.stringify(resolvedLocation));
                 return resolve({
