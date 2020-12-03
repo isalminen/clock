@@ -8,12 +8,12 @@ const TIMEOUT = 50 * 1000;
 const MAX_AGE = 3600 * 1000;
 let lastGeocode: Geocode;
 
-function sendLocation(pos) {
+function sendData(data: CompanionResponse) {
+    console.log("Sending data to the device");
     if (messaging.peerSocket.readyState === messaging.peerSocket.OPEN) {
-        console.log("Sending data to the device");
-        messaging.peerSocket.send(pos);
+        messaging.peerSocket.send(data);
     } else {
-        console.log("sendLocation: Connection is not open");
+        console.log("sendData: Connection is not open");
     }
 }
 
@@ -23,7 +23,7 @@ messaging.peerSocket.onmessage = async (evt) => {
         console.log("Getting the current pos");
         const pos = await getLocation();
         if (pos) {
-            sendLocation(pos);
+            sendData(pos);
         }
     }
 };
@@ -88,10 +88,23 @@ settingsStorage.addEventListener("change", async (evt) => {
         },
         {timeout: TIMEOUT, maximumAge: MAX_AGE});
     }
+    sendData({
+        response: "setting",
+        data: {
+            [evt.key]: JSON.parse(evt.newValue),
+        }
+    });
 });
 
 function saveGeocode(geocode: Geocode) {
     console.log("Saving: " + JSON.stringify(geocode));
     settingsStorage.setItem("locationName", geocode.label);
     settingsStorage.setItem("location", JSON.stringify(geocode.coords));
+    console.log("Sending loc to the device");
+    sendData({
+        response: "setting",
+        data: {
+            location: geocode.coords,
+        }
+    })
 }

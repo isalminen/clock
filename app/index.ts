@@ -5,6 +5,7 @@ import * as util from "../common/utils";
 import { selectActivities } from "./activities";
 import { getSunEvents, SunEvents } from "../common/sunevents";
 import { LocationProvider } from "./location-provider";
+import { listenSettings } from "./messaging";
 
 // set the default sun icons & labels
 util.setIcon("leftsunicon", "sunrise.png");
@@ -14,11 +15,8 @@ util.setUIElementText("right_label", gettext("Sunset"));
 util.setUIElementText("time_left_label", gettext("Daylight_left"));
 
 let sunEvents: SunEvents;
-
-// Update the clock every minute
-clock.granularity = "minutes";
-clock.ontick = (evt) => {
-  const today: Date = evt.date;
+function draw(time?: Date) {
+  const today: Date = time || new Date() ;
   const hours = today.getHours();
   const hrStr = preferences.clockDisplay === "12h" ?  "" + (hours % 12 || 12) : util.zeroPad(hours);
   const mins = util.zeroPad(today.getMinutes());
@@ -34,8 +32,19 @@ clock.ontick = (evt) => {
   if (pos) {
     sunEvents = getSunEvents(pos);
     util.setSuntimes(sunEvents);
-    util.setUIElementText("daynightlength", `${util.lengthToHrMin(sunEvents[1].time.valueOf() - Date.now())}`);
   } else {
     util.setUIElementText("daynightlength",  gettext("No_location"));
   }
 }
+
+// Update the clock every minute
+clock.granularity = "minutes";
+clock.ontick = (evt) => {
+  draw(evt.date);
+}
+
+listenSettings((err, settings) => {
+  if (settings.response === "setting") {
+    draw();
+  }
+})

@@ -1,6 +1,6 @@
 export interface Location {
-    lat: number;
-    lon: number;
+    latitude: number;
+    longitude: number;
 }
 
 export interface CompanionRequest {

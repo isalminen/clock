@@ -1,5 +1,6 @@
 import { CompanionResponse, Location } from "../common/types";
-import { send, Callback } from "./messaging";
+import { send } from "./messaging";
+import { getSettings } from "./settings";
 
 const HOUR = 3600 * 1000;
 const MINUTE = 60 * 1000;
@@ -10,7 +11,7 @@ export class LocationProvider {
     private lastPosUpdate: number = 0;
 
     protected constructor() {
-        this.latestPos = undefined;
+        this.latestPos = getSettings()?.location;
         this.subscribeToLocations();
     }
 
@@ -28,25 +29,33 @@ export class LocationProvider {
     private locationUpdated(response: CompanionResponse) {
         if (response?.response === "location") {
             if (response.data?.coords) {
-                this.latestPos = {
-                    lat: response.data.coords?.latitude,
-                    lon: response.data.coords?.longitude,
-                };
-                this.lastPosUpdate = Date.now();
+                this.setLocation(response.data.coords);
             }
         }
     }
 
+    private setLocation(loc: Location) {
+        this.latestPos = { ...loc };
+        this.lastPosUpdate = Date.now();
+    }
+
     private subscribeToLocations() {
-        console.log("Asking a location from the companion");
-        send({request: "location"}, (err, loc) => {
-            if (err) {
-                console.log("Loc comm error: " + JSON.stringify(err));
-            } else {
-                console.log("Loc update: " + JSON.stringify(loc));
-                this.locationUpdated(loc);
-            }
-        });
+        const { useGps, location } = getSettings();
+        if (useGps || !location) {
+            console.log("Asking a location from the companion");
+            send({request: "location"}, (err, loc) => {
+                if (err) {
+                    console.log("Loc comm error: " + JSON.stringify(err));
+                } else {
+                    console.log("Loc update: " + JSON.stringify(loc));
+                    this.locationUpdated(loc);
+                }
+            });
+        } else if (location) {
+            console.log("Using existing location");
+            this.setLocation(location);
+        }
+        
         setTimeout(() => {
             this.subscribeToLocations();
         }, this.latestPos ? HOUR : MINUTE);

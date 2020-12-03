@@ -12,20 +12,20 @@ export function getSunEvents(pos: Location): SunEvents {
     const retData: SunEvent[] = [];
     const today = new Date();
     // assume now is between sunrise and sunset
-    let sunrise = getSunrise(pos.lat, pos.lon, today);
+    let sunrise = getSunrise(pos.latitude, pos.longitude, today);
     retData.push({type: "sunrise", time: sunrise});
-    let sunset = getSunset(pos.lat, pos.lon, today);
+    let sunset = getSunset(pos.latitude, pos.longitude, today);
     retData.push({type: "sunset", time: sunset});
 
-    // if the sunrise in future, it is after midnight before sunrise
+    // if the sunrise in future, it is after midnight before the sunrise
     // we want yesterday's sunset as a first value and the sunrise the second
     if (sunrise.valueOf() > today.valueOf()) {
         const yesterday = new Date();
         // this works across month/year boundaries
         yesterday.setDate(today.getDate() - 1);
-        sunset = getSunset(pos.lat, pos.lon, yesterday);
+        const yesterSunset = getSunset(pos.latitude, pos.longitude, yesterday);
         retData[1] = retData[0];
-        retData[0] = {type: "sunset", time: sunset};
+        retData[0] = {type: "sunset", time: yesterSunset};
     }
 
     // if the sunset is in the past, we want the next day's sunrise
@@ -34,9 +34,9 @@ export function getSunEvents(pos: Location): SunEvents {
         const tomorrow = new Date();
         // this works across month/year boundaries
         tomorrow.setDate(today.getDate() + 1);
-        sunrise = getSunrise(pos.lat, pos.lon, tomorrow);
+        const nextSunrise = getSunrise(pos.latitude, pos.longitude, tomorrow);
         retData[0] = retData[1];
-        retData[1] = {type: "sunrise", time: sunrise};
+        retData[1] = {type: "sunrise", time: nextSunrise};
     }
     return retData as SunEvents;
 }

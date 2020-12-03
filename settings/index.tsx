@@ -1,9 +1,10 @@
 function ClockSettings(props) {
   const pos =  props.settings.location ? JSON.parse(props.settings.location) : {};
   return (
+    <Page>
     <Section
-      description={<Text> Location </Text>}
-      title={<Text bold align="center">Suntimes Settings</Text>}>
+      description={<Text> Location Settings</Text>}
+      title={<Text bold align="center">Location Settings</Text>}>
       <Text>
         You can set the fixed location by typing the name of the location or use 
         the GPS of the phone. 
@@ -20,11 +21,41 @@ function ClockSettings(props) {
         settingsKey="locationName"
         disabled={(props.settings.useGPS === "true")}/>
       <Text>
+        <Text bold>Current location: </Text>
         {
           pos.latitude && pos.longitude ? `latitude: ${pos.latitude}, longitude: ${pos.longitude}` : "Location not set"
         }
       </Text>
     </Section>
+    <Section
+      description={<Text> Color Settings</Text>}
+      title={<Text bold align="center">Color Settings</Text>}>
+        <Text>Hour colour:</Text>
+        <ColorSelect
+          settingsKey="hoursColour"
+          colors={[
+            {color: 'tomato'},
+            {color: 'sandybrown'},
+            {color: 'gold'},
+            {color: 'aquamarine'},
+            {color: 'black'},
+            {color: 'white'}
+          ]}
+        />
+        <Text>Minute colour:</Text>
+        <ColorSelect
+          settingsKey="minutesColour"
+          colors={[
+            {color: 'tomato'},
+            {color: 'sandybrown'},
+            {color: 'gold'},
+            {color: 'aquamarine'},
+            {color: 'black'},
+            {color: 'white'}
+          ]}
+        />
+    </Section>
+    </Page>
   );
 }
 

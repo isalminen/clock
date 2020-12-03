@@ -9,6 +9,8 @@ type QueueItem = {
     cb: Callback;
 }
 const messageQueue: QueueItem[] = [];
+const settingsListeners: Callback[] = [];
+
 let waitingResponse = false;
 let timer = undefined;
 
@@ -43,8 +45,15 @@ function handleResponse(err: any, data: any): void {
     setTimeout(sendMessage, 0);
 }
 
+function handleSetting(data: CompanionResponse) {
+    settingsListeners.forEach(cb => cb(null, data));
+}
+
 messaging.peerSocket.addEventListener("message", (evt) => {
     console.log("Got a message from the companion: " + JSON.stringify(evt.data));
+    if (evt.data && evt.data.response === "setting") {
+        return handleSetting(evt.data);
+    }
     handleResponse(null, evt.data);
 });
 
@@ -63,4 +72,8 @@ export function send(msg: CompanionRequest, cb: Callback): void {
     } else {
         sendMessage();
     }
+}
+
+export function listenSettings(cb: Callback) {
+    settingsListeners.push(cb);
 }

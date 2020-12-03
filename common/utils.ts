@@ -1,6 +1,7 @@
 import document from "document";
 import { gettext } from "i18n";
 import { SunEvents } from './sunevents';
+import { getSetting } from "../app/settings";
 
 const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
@@ -33,8 +34,12 @@ export function formatDate(date: Date): string {
 
 export function setUIElementText(id: string, value: string) {
     const el = document.getElementById(id);
+    const colour = getSetting(id + "Colour");
     if (el) {
         el.text = value;
+        if(colour) {
+            (el as any).style.fill = colour;
+        }
     }
 }
   
@@ -65,9 +70,17 @@ export function setSuntimes(sunEvents: SunEvents): void {
         setUIElementText("right_label", gettext("Sunrise"));
         setUIElementText("time_left_label", gettext("Until_dawn"));      
     }
-    setUIElementText("leftsuntime",
-    `${zeroPad(sunEvents[0].time.getHours())}:${zeroPad(sunEvents[0].time.getMinutes())}`);
-    setUIElementText("rightsuntime",
-    `${zeroPad(sunEvents[1].time.getHours())}:${zeroPad(sunEvents[1].time.getMinutes())}`);
-    setUIElementText("daynightlength", `${lengthToHrMin(sunEvents[1].time.valueOf() - Date.now())}`)
+    
+    const leftTime = sunEvents[0].time.valueOf() ?
+        `${zeroPad(sunEvents[0].time.getHours())}:${zeroPad(sunEvents[0].time.getMinutes())}`
+    : "--";
+    setUIElementText("leftsuntime", leftTime);
+    const rightTime = sunEvents[1].time.valueOf() ? 
+        `${zeroPad(sunEvents[1].time.getHours())}:${zeroPad(sunEvents[1].time.getMinutes())}`
+    : "--";
+    setUIElementText("rightsuntime", rightTime);
+    const length = sunEvents[1].time.valueOf() ?
+        `${lengthToHrMin(sunEvents[1].time.valueOf() - Date.now())}`
+    : "--";
+    setUIElementText("daynightlength", length);
 }
