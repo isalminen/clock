@@ -2,7 +2,7 @@
   "name": "clock",
   "version": "0.1.0",
   "private": true,
-  "license": "MIT",
+  "license": "GPL-2.0-or-later",
   "devDependencies": {
     "@fitbit/sdk": "~5.0.1",
     "@fitbit/sdk-cli": "1.7.3",
