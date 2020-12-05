@@ -28,7 +28,47 @@ function ClockSettings(props) {
       </Text>
     </Section>
     <Section
-      description={<Text> Color Settings</Text>}
+      description={<Text>Activities</Text>}
+      title={<Text bold align="center">Activities</Text>}>
+        <Select 
+          title="First activity"
+          label="First activity"
+          settingsKey="activity1"
+          options={[
+            {name:"Heart Rate", value: "heart-rate"},
+            {name:"Steps", value: "steps"},
+            {name:"Floors", value: "floors"},
+            {name:"Distance", value: "distance"},
+            {name:"Calories", value: "energy"},
+          ]}
+        />
+        <Select 
+          title="Second activity"
+          label="Second activity"
+          settingsKey="activity2"
+          options={[
+            {name:"Steps", value: "steps"},
+            {name:"Floors", value: "floors"},
+            {name:"Distance", value: "distance"},
+            {name:"Calories", value: "energy"},
+            {name:"Heart Rate", value: "heart-rate"},
+          ]}
+        />
+        <Select 
+          title="Third activity"
+          label="Third activity"
+          settingsKey="activity3"
+          options={[
+            {name:"Floors", value: "floors"},
+            {name:"Distance", value: "distance"},
+            {name:"Calories", value: "energy"},
+            {name:"Heart Rate", value: "heart-rate"},
+            {name:"Steps", value: "steps"},
+          ]}
+        />
+    </Section>
+    <Section
+      description={<Text>Color Settings</Text>}
       title={<Text bold align="center">Color Settings</Text>}>
         <Text>Hour colour:</Text>
         <ColorSelect
@@ -52,6 +92,20 @@ function ClockSettings(props) {
             {color: 'aquamarine'},
             {color: 'black'},
             {color: 'white'}
+          ]}
+        />
+    </Section>
+    <Section
+      description={<Text>Background</Text>}
+      title={<Text bold align="center">Background</Text>}>
+      <Select 
+          title="Background"
+          label="Background"
+          settingsKey="background"
+          options={[
+            {name:"Starry sky", value: "starry-bg.png"},
+            {name:"Black texture", value: "black-bg.png"},
+            {name:"Milky Way", value: "milky-way-bg.png"},
           ]}
         />
     </Section>

@@ -1,14 +1,14 @@
 <svg class="background">
-  <image href="starry-bg.png" />
+  <image id="background" href="starry-bg.png" />
   <text id="date" />
   <section id="time">
     <text id="hours" />
     <text id="minutes" />
   </section>
   <section id="sensors">
-    <section class="sensor_data" id="sensor1g"><image href="heart.png" class="icon sensoricon"/><text id="sensor_1" class="sensor_data"/></section>
-    <section class="sensor_data" id="sensor2g"><image href="steps.png" class="icon sensoricon"/><text id="sensor_2" class="sensor_data"/></section>
-    <section class="sensor_data" id="sensor3g"><image href="stairs.png" class="icon sensoricon"/><text id="sensor_3" class="sensor_data"/></section>
+    <section class="sensor_data" id="sensor1g"><image href="heart-rate.png" id="sensor1_icon" class="icon sensoricon"/><text id="sensor1" class="sensor_data"/></section>
+    <section class="sensor_data" id="sensor2g"><image href="steps.png" id="sensor2_icon" class="icon sensoricon"/><text id="sensor2" class="sensor_data"/></section>
+    <section class="sensor_data" id="sensor3g"><image href="floors.png" id="sensor3_icon"  class="icon sensoricon"/><text id="sensor3" class="sensor_data"/></section>
   </section>
   <section id="suninfo">
     <section id="sunlabels">
@@ -23,5 +23,9 @@
       <text id="rightsuntime" />
       <image href="sunset.png"  id="rightsunicon" />
     </section>
+  </section>
+  <section id="battery">
+    <image id="battery_icon" class="battery_icon" href="battery-full.png" />
+    <text id="battery_value" />
   </section>
 </svg>

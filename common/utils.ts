@@ -2,11 +2,13 @@ import document from "document";
 import { gettext } from "i18n";
 import { SunEvents } from './sunevents';
 import { getSetting } from "../app/settings";
+import { Activity } from "../app/activities";
 
 const weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
                 "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-// Add zero in front of numbers < 10
+
+ 
 export function zeroPad(i: number): string {
     return `${i < 10 ? "0" + i : i}`;
 }
@@ -30,6 +32,13 @@ export function formatDate(date: Date): string {
             suffix = "th";
     }
     return `${weekday}, ${monStr} ${dayStr}${suffix}`;
+}
+
+export function updateActivities(activities: Activity[]) {
+    activities.forEach((activity, i) => {
+        setIcon(`sensor${i + 1}_icon`, `${activity.name}.png`);
+        setUIElementText(`sensor${i + 1}`, `${activity.value ? activity.value : "--"}`);    
+    });
 }
 
 export function setUIElementText(id: string, value: string) {
@@ -83,4 +92,33 @@ export function setSuntimes(sunEvents: SunEvents): void {
         `${lengthToHrMin(sunEvents[1].time.valueOf() - Date.now())}`
     : "--";
     setUIElementText("daynightlength", length);
+}
+
+export function setBattery(power: number | "charging") {
+    let icon = "battery-full.png"
+    let value = "100%";
+    if (power === "charging") {
+        icon = "battery-charging.png";
+        value = "";
+    } else {
+        value = `${power}%`;
+        if (power <= 25) {
+            icon = "battery-low.png";
+        } else if (power <= 50) {
+            icon = "battery-50.png";
+        } else if (power <= 75) {
+            icon = "battery-75.png";
+        } else {
+            icon = "battery-full.png";
+        }
+    }
+    setIcon("battery_icon", icon);
+    setUIElementText("battery_value", value);
+}
+
+export function setBackground(bg: string) {
+    const el: ImageElement = document.getElementById("background") as ImageElement;
+    if (el && el.href !== bg && bg) {
+        el.href = bg;
+    }
 }

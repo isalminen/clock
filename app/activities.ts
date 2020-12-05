@@ -4,14 +4,12 @@ import { today } from "user-activity";
 import { BodyPresenceSensor } from "body-presence";
 import { display } from "display";
 
-export type ActivityName = "heart-rate" | "steps" | "floors";
-
-export type Activities = {
-    [name in ActivityName]?: {
-        value: number;
-        unit?: string;
-    };
-};
+export type ActivityName = "heart-rate" | "steps" | "floors" | "distance" | "energy" ;
+export type Activity = {
+    name: ActivityName;
+    value: number;
+    unit?: string;
+}
 
 let hrm: HeartRateSensor = null;
 let body: BodyPresenceSensor = null;
@@ -39,22 +37,45 @@ display.addEventListener("change", () => {
     }
 });
 
-export function selectActivities(activities: [ActivityName, ActivityName, ActivityName]): Activities {
-    const values = activities.reduce((acc, current) => {
-        acc[current] = {
-            value: undefined,
-        };
-        switch(current) {
+export function selectActivities(activities: [ActivityName, ActivityName, ActivityName]): Activity[] {
+    const selected = activities.map((name) => {
+        switch(name) {
+            case "energy":
+                if (appbit.permissions.granted("access_activity") &&
+                    today.adjusted.calories) {
+                        return {
+                            name,
+                            value: today.adjusted.calories,
+                            unit: "cal",
+                        };
+                }
+                break;
+            case "distance":
+                if (appbit.permissions.granted("access_activity") &&
+                    today.adjusted.distance) {
+                        return {
+                            name,
+                            value: today.adjusted.distance,
+                            unit: "m",
+                        };
+                }
+                break;
             case "steps":
                 if (appbit.permissions.granted("access_activity") &&
                     today.adjusted.steps) {
-                        acc[current].value = today.adjusted.steps;
+                        return {
+                            name,
+                            value: today.adjusted.steps,
+                        };
                 }
                 break;
             case "floors":
                 if (appbit.permissions.granted("access_activity") && 
                     today.local.elevationGain) {
-                        acc[current].value = today.adjusted.elevationGain;
+                        return {
+                            name,
+                            value: today.adjusted.elevationGain,
+                        };
                 }
                 break;
             case "heart-rate":
@@ -65,18 +86,19 @@ export function selectActivities(activities: [ActivityName, ActivityName, Activi
                     });
                     hrm.start();
                 }
-                acc[current].value = latestHeartRate;
-                break;
+                return {
+                    name,
+                    value: latestHeartRate,
+                    unit: "bpm",
+                };
             default:
                 // nothing
         }
-        return acc;
-    }, {});
-    
+    });
     // check if we need to stop the hrm i.e it is no longer wanted
-    if (hrm && !values["heart-rate"]) {
+    if (hrm && activities.indexOf("heart-rate") < 0) {
         hrm.stop();
         hrm = undefined;
     }
-    return values;
+    return selected;
 }

@@ -97,7 +97,7 @@
 
 #suninfo {
   width: 100%;
-  height: 25%;
+  height: 15%;
   x: 10;
   y: 75%;
 }
@@ -140,7 +140,7 @@
   text-length: 12;
   text-anchor: start;
   x: $+5;
-  y: 50%;
+  y: 50%+8;
   width:25%;
   height: 100%;
   fill: white;
@@ -163,7 +163,7 @@
   text-length: 24;
   text-anchor: start;
   x: 55;
-  y: 50%;
+  y: 50%+8;
   width: 20%;
   height: 100%;
   fill: white;
@@ -186,8 +186,34 @@
   text-length: 24;
   text-anchor: start;
   x: $+5;
-  y: 50%;
+  y: 50%+8;
   width: 33%;
   height: 100%;
   fill: white;
+}
+
+#battery {
+  y: $;
+  x: 10%;
+  width: 80%;
+  height: 10%;
+}
+
+#battery_icon {
+  x: 33%;
+  y: 0;
+  width: 20%;
+  height: 80%;
+}
+
+#battery_value {
+  x: $+10;
+  y: 50%+5;
+  width: 80%;
+  height: 100%;
+  text-lenght: 4;
+  fill: white;
+  font-size: 20;
+  font-family: System-Regular;
+  text-anchor: start;
 }
