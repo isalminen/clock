@@ -39,43 +39,35 @@ display.addEventListener("change", () => {
 
 export function selectActivities(activities: [ActivityName, ActivityName, ActivityName]): Activity[] {
     const selected = activities.map((name) => {
+        const activity: Activity = {
+            name,
+            value: undefined,
+        };
         switch(name) {
             case "energy":
                 if (appbit.permissions.granted("access_activity") &&
-                    today.adjusted.calories) {
-                        return {
-                            name,
-                            value: today.adjusted.calories,
-                            unit: "cal",
-                        };
+                    today.adjusted.calories !== undefined) {
+                        activity.value = today.adjusted.calories;
+                        activity.unit = "cal";
                 }
                 break;
             case "distance":
                 if (appbit.permissions.granted("access_activity") &&
-                    today.adjusted.distance) {
-                        return {
-                            name,
-                            value: today.adjusted.distance,
-                            unit: "m",
-                        };
+                    today.adjusted.distance !== undefined) {
+                        activity.value = today.adjusted.distance;
+                        activity.unit = "m";
                 }
                 break;
             case "steps":
                 if (appbit.permissions.granted("access_activity") &&
-                    today.adjusted.steps) {
-                        return {
-                            name,
-                            value: today.adjusted.steps,
-                        };
+                    today.adjusted.steps !== undefined) {
+                        activity.value = today.adjusted.steps;
                 }
                 break;
             case "floors":
                 if (appbit.permissions.granted("access_activity") && 
-                    today.local.elevationGain) {
-                        return {
-                            name,
-                            value: today.adjusted.elevationGain,
-                        };
+                    today.local.elevationGain !== undefined) {
+                        activity.value = today.adjusted.elevationGain;
                 }
                 break;
             case "heart-rate":
@@ -86,14 +78,12 @@ export function selectActivities(activities: [ActivityName, ActivityName, Activi
                     });
                     hrm.start();
                 }
-                return {
-                    name,
-                    value: latestHeartRate,
-                    unit: "bpm",
-                };
+                activity.value = latestHeartRate;
+                activity.unit = "bpm";
             default:
                 // nothing
         }
+        return activity;
     });
     // check if we need to stop the hrm i.e it is no longer wanted
     if (hrm && activities.indexOf("heart-rate") < 0) {

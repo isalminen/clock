@@ -37,7 +37,7 @@ export function formatDate(date: Date): string {
 export function updateActivities(activities: Activity[]) {
     activities.forEach((activity, i) => {
         setIcon(`sensor${i + 1}_icon`, `${activity.name}.png`);
-        setUIElementText(`sensor${i + 1}`, `${activity.value ? activity.value : "--"}`);    
+        setUIElementText(`sensor${i + 1}`, `${activity.value !== undefined ? activity.value : "--"}`);    
     });
 }
 
@@ -90,14 +90,12 @@ export function setSuntimes(sunEvents: SunEvents): void {
     setUIElementText("daynightlength", length);
 }
 
-export function setBattery(power: number | "charging") {
+export function setBattery(power: number, charging: boolean) {
     let icon = "battery-full.png"
-    let value = "100%";
-    if (power === "charging") {
+    let value = `${power}%`;
+    if (charging) {
         icon = "charging.png";
-        value = "";
     } else {
-        value = `${power}%`;
         if (power <= 25) {
             icon = "battery-low.png";
         } else if (power <= 50) {

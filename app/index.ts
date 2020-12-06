@@ -24,7 +24,8 @@ function draw(time?: Date) {
   util.setUIElementText("hours", `${hrStr}`);
   util.setUIElementText("minutes", `${mins}`);
   util.setUIElementText("date", `${util.formatDate(today)}`);
-  const activities = selectActivities(getSetting("activities"));
+  const activeActivities = getSetting("activities");
+  const activities = selectActivities(activeActivities);
   util.updateActivities(activities);
   const pos = LocationProvider.getInstance().getLatestPos();
   if (pos) {
@@ -33,8 +34,7 @@ function draw(time?: Date) {
   } else {
     util.setUIElementText("daynightlength",  gettext("No_location"));
   }
-  const power = battery.charging ? "charging" : battery.chargeLevel;
-  util.setBattery(power);
+  util.setBattery(battery.chargeLevel, battery.charging);
 }
 
 // Update the clock every minute
