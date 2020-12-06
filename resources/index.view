@@ -1,31 +1,67 @@
-<svg class="background">
-  <image id="background" href="starry-bg.png" />
-  <text id="date" />
-  <section id="time">
-    <text id="hours" />
-    <text id="minutes" />
+<svg id="app">
+  <image id="background" href="milky-way-bg.png" />
+  <section id="date_view"
+           x="0" y="0" width="100%" height="10%">
+    <text id="date"
+          x="50%" y="50%+10" width="100%" height="100%" />
   </section>
-  <section id="sensors">
-    <section class="sensor_data" id="sensor1g"><image href="heart-rate.png" id="sensor1_icon" class="icon sensoricon"/><text id="sensor1" class="sensor_data"/></section>
-    <section class="sensor_data" id="sensor2g"><image href="steps.png" id="sensor2_icon" class="icon sensoricon"/><text id="sensor2" class="sensor_data"/></section>
-    <section class="sensor_data" id="sensor3g"><image href="floors.png" id="sensor3_icon"  class="icon sensoricon"/><text id="sensor3" class="sensor_data"/></section>
-  </section>
-  <section id="suninfo">
-    <section id="sunlabels">
-      <text id="left_label" />
-      <text id="time_left_label" />
-      <text id="right_label" />
+  <section id="main_view"
+           x="0" y="$" width="100%" height="65%-10">
+    <section id="time"
+             x="10" y="20" width="50%" height="100%">
+      <text id="hours"
+            x="50%" y="30%" width="100%" height="50%"/>
+      <text id="minutes"
+            x="50%" y="$" width="100%" height="50%"/>
     </section>
-    <section>
-      <image href="sunrise.png" id="leftsunicon" />
-      <text id="leftsuntime" />
-      <text id="daynightlength" />
-      <text id="rightsuntime" />
-      <image href="sunset.png"  id="rightsunicon" />
+    <section id="sensors"
+             x="$" y="20" width="50%" height="100%">
+      <section class="sensor_data" id="sensor1g"
+             x="0%" y="0%" width="100%" height="33%">
+        <image href="heart-rate.png" id="sensor1_icon" class="icon sensoricon"/>
+        <text id="sensor1" class="sensor_data"
+              x="$+15" y="50%" width="100%-45" height="100%-35" />
+      </section>
+      <section class="sensor_data" id="sensor2g"
+               x="0%" y="$" width="100%" height="33%">
+        <image href="steps.png" id="sensor2_icon" class="icon sensoricon"/>
+        <text id="sensor2" class="sensor_data"
+              x="$+15" y="50%" width="100%-45" height="100%-35"/>
+      </section>
+      <section class="sensor_data" id="sensor3g"
+               x="0%" y="$" width="100%" height="33%">
+        <image href="floors.png" id="sensor3_icon"  class="icon sensoricon"/>
+        <text id="sensor3" class="sensor_data"
+              x="$+15" y="50%" width="100%-45" height="100%-35"/>
+      </section>
     </section>
   </section>
-  <section id="battery">
-    <image id="battery_icon" class="battery_icon" href="battery-full.png" />
-    <text id="battery_value" />
+  <section id="suninfo"
+           x="0" y="$" width="100%" height="10%">
+    <section id="sunlabels"
+             x="0" y="15" width="100%" height="10">
+      <text id="time_left_label" class="sun_label"
+             x="50%" y="50%" width="100%" height="100%"/>
+    </section>
+    <section id="sunevents"
+             x="0" y="$-15" width="100%" height="100%-10">
+      <image href="sunrise.png" id="leftsunicon" 
+             x="10" y="0" width="35" height="35"/>
+      <text id="leftsuntime" 
+            x="$+10" y="50%+15" width="20%" height="100%"/>
+      <text id="daynightlength"
+            x="$+15" y="50%+15" width="25%" height="100%"/>
+      <text id="rightsuntime"
+            x="$+5" y="50%+15" width="15%" height="100%"/>
+      <image href="sunset.png" id="rightsunicon"
+            x="$+5" y="0" width="35" height="35"/>
+    </section>
+  </section>
+  <section id="battery"
+           x="0" y="$+15" width="100%" height="10%">
+    <image id="battery_icon" class="battery_icon" href="battery-full.png"
+           x="50%-37" y="0" width="37" height="25"/>
+    <text id="battery_value"
+          x="$+10" y="50%+5" width="80%" height="100%"/>
   </section>
 </svg>

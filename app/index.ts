@@ -12,8 +12,6 @@ import { getSetting } from "./settings";
 // set the default sun icons & labels
 util.setIcon("leftsunicon", "sunrise.png");
 util.setIcon("rightsunicon", "sunset.png");
-util.setUIElementText("left_label", gettext("Sunrise"));
-util.setUIElementText("right_label", gettext("Sunset"));
 util.setUIElementText("time_left_label", gettext("Daylight_left"));
 
 let sunEvents: SunEvents;
@@ -47,6 +45,6 @@ clock.ontick = (evt) => {
 
 listenSettings((err, settings) => {
   if (settings.response === "setting") {
-    draw();
+    setTimeout(() => draw(), 0);
   }
 })

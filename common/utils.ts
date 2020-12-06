@@ -69,14 +69,10 @@ export function setSuntimes(sunEvents: SunEvents): void {
     if (sunEvents[0].type === "sunrise") {
         setIcon("leftsunicon", "sunrise.png");
         setIcon("rightsunicon", "sunset.png");
-        setUIElementText("left_label", gettext("Sunrise"));
-        setUIElementText("right_label", gettext("Sunset"));
         setUIElementText("time_left_label", gettext("Daylight_left"));
       } else {
         setIcon("leftsunicon", "sunset.png");
         setIcon("rightsunicon", "sunrise.png");
-        setUIElementText("left_label", gettext("Sunset"));
-        setUIElementText("right_label", gettext("Sunrise"));
         setUIElementText("time_left_label", gettext("Until_dawn"));      
     }
     
@@ -98,7 +94,7 @@ export function setBattery(power: number | "charging") {
     let icon = "battery-full.png"
     let value = "100%";
     if (power === "charging") {
-        icon = "battery-charging.png";
+        icon = "charging.png";
         value = "";
     } else {
         value = `${power}%`;

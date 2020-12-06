@@ -15,7 +15,7 @@ export interface Settings {
 let settings: Settings = {
     useGps: false,
     activities: ["heart-rate", "steps", "floors"],
-    background: "starry-bg.png",
+    background: "milky-way-bg.png",
 }
 
 if (fs.existsSync(SETTINGS_FILE)) {
