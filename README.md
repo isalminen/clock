@@ -15,9 +15,14 @@ Fitbit SDK requires NodeJS 8+ but I have tested only the version 12. The SDK can
 be easily installed with the version 15. At least, for Windows without Windows build tools.
 
 ## App UUID
-Remember to create your own app uuid and set it to package.json.
+Remember to create your own app uuid and set it into the package.json.
 ```
 npx uuid
+```
+and then in the package.json
+```
+  "fitbit": {
+    "appUUID": "Your new app id goes here",
 ```
 
 ## Here API key
