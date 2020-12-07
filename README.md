@@ -2,7 +2,12 @@
 Simple Fitbit Sense/Versa 3 watch face
 
 # Install
-You need Fitbit CLI:
+You need Fitbit Developer account and the CLI SDK.
+
+Fitbit SDK guide and documentation:
+https://dev.fitbit.com/getting-started/
+
+CLI:
 https://dev.fitbit.com/build/guides/command-line-interface/
 
 ```
