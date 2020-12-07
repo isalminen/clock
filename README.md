@@ -29,6 +29,3 @@ export const apikey = "Your apikey here";
 ```
 HERE documentation: https://developer.here.com/products/geocoding-and-search
 
-# Not yet suitable for a general use
-This watch face will drain your battery pretty quickly
- 
