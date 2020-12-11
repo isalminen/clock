@@ -72,7 +72,7 @@ function julianDay(date: Date): number {
     return Math.floor(c + d + e + f - 1524.5) + (h - 12) / 24;
 }
 
-export function calculate(pos: Position, date: Date, zenith: number) {
+export function calculate(pos: Position, date: Date, zenith: number): [Date, Date] {
     const jCentury = (julianDay(date) - 2451545) / 36525;
     const sunMeanLong = (280.46646 + jCentury * (36000.76983 + jCentury * 0.0003032)) % 360;
     const sunMeanAnomaly = 357.52911 + jCentury * (35999.05029 - 0.0001537 * jCentury);
@@ -98,17 +98,3 @@ export function calculate(pos: Position, date: Date, zenith: number) {
     const sunset = new Date(midnightUTC + sunsetFrac * 24 * 3600 * 1000);
     return [sunrise, sunset];
 }
-
-const tre = { latitude: 61.52, longitude: 23.761025 };
-const dallas = { latitude: 32.78, longitude: -96.8 };
-const now = new Date(2020, 11, 11, 0, 6);
-
-console.log("Julian day no: " + julianDay(now));
-console.log("Today:");
-let result = calculate(tre, new Date(), ZENITH.STANDARD);
-console.log("Sunrise: " + result[0].toTimeString());
-console.log("Sunset: " + result[1].toTimeString());
-console.log("Tomorrow:");
-result = calculate(tre, new Date(Date.now() + 24 * 3600 * 1000), ZENITH.STANDARD);
-console.log("Sunrise: " + result[0].toTimeString());
-console.log("Sunset: " + result[1].toTimeString());
