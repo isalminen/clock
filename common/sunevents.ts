@@ -1,5 +1,6 @@
-import { getSunrise, getSunset } from "./sunrise-sunset";
+import { calculate, ZENITH } from "./sun-noaa";
 import { Location } from "./types";
+import { getSetting } from "../app/settings";
 
 export interface SunEvent {
     type: "sunset" | "sunrise";
@@ -11,10 +12,10 @@ export type SunEvents = [SunEvent, SunEvent];
 export function getSunEvents(pos: Location): SunEvents {
     const retData: SunEvent[] = [];
     const today = new Date();
+    const zenith = getSetting("zenith") || ZENITH.STANDARD;
     // assume now is between sunrise and sunset
-    let sunrise = getSunrise(pos.latitude, pos.longitude, today);
+    const [sunrise, sunset] = calculate(pos, today, zenith);
     retData.push({type: "sunrise", time: sunrise});
-    let sunset = getSunset(pos.latitude, pos.longitude, today);
     retData.push({type: "sunset", time: sunset});
 
     // if the sunrise in future, it is after midnight before the sunrise
@@ -23,9 +24,9 @@ export function getSunEvents(pos: Location): SunEvents {
         const yesterday = new Date();
         // this works across month/year boundaries
         yesterday.setDate(today.getDate() - 1);
-        const yesterSunset = getSunset(pos.latitude, pos.longitude, yesterday);
+        const [_, yesterdaySunset] = calculate(pos, yesterday, zenith);
         retData[1] = retData[0];
-        retData[0] = {type: "sunset", time: yesterSunset};
+        retData[0] = {type: "sunset", time: yesterdaySunset};
     }
 
     // if the sunset is in the past, we want the next day's sunrise
@@ -34,7 +35,7 @@ export function getSunEvents(pos: Location): SunEvents {
         const tomorrow = new Date();
         // this works across month/year boundaries
         tomorrow.setDate(today.getDate() + 1);
-        const nextSunrise = getSunrise(pos.latitude, pos.longitude, tomorrow);
+        const [nextSunrise, _] = calculate(pos, tomorrow, zenith);
         retData[0] = retData[1];
         retData[1] = {type: "sunrise", time: nextSunrise};
     }

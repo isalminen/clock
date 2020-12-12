@@ -68,16 +68,42 @@ function ClockSettings(props) {
         />
     </Section>
     <Section
+     description={<Text>Twilight Settings</Text>}
+     title={<Text bold align="center">Twilight Settings</Text>}>
+       <Select
+        title="Sunrise/sunset happens at:"
+        label="Twilight"
+        settingsKey="zenith"
+        options={[
+          {name: "Sunrise/sunset", value: "90.883"},
+          {name: "Civil Twilight", value: "96"},
+          {name: "Nautical Twilight", value: "102"},
+          {name: "Astronomical Twilight", value: "108"}
+        ]}/>
+    </Section>
+    <Section
       description={<Text>Color Settings</Text>}
       title={<Text bold align="center">Color Settings</Text>}>
         <Text>Hour colour:</Text>
         <ColorSelect
           settingsKey="hoursColour"
           colors={[
-            {color: 'tomato'},
-            {color: 'sandybrown'},
-            {color: 'gold'},
+            {color: 'firebrick'},
+            {color: 'peachpuff'},
+            {color: 'lightgoldenrodyellow'},
             {color: 'aquamarine'},
+            {color: 'rosybrown'},
+            {color: 'aliceblue'},
+            {color: 'tomato'},
+            {color: 'orange'},
+            {color: 'khaki'},
+            {color: 'palegreen'},
+            {color: 'slategrey'},
+            {color: 'seashell'},
+            {color: 'deeppink'},
+            {color: 'gold'},
+            {color: 'yellow'},
+            {color: 'darkseagreen'},
             {color: 'black'},
             {color: 'white'}
           ]}
@@ -86,10 +112,22 @@ function ClockSettings(props) {
         <ColorSelect
           settingsKey="minutesColour"
           colors={[
-            {color: 'tomato'},
-            {color: 'sandybrown'},
-            {color: 'gold'},
+            {color: 'firebrick'},
+            {color: 'peachpuff'},
+            {color: 'lightgoldenrodyellow'},
             {color: 'aquamarine'},
+            {color: 'rosybrown'},
+            {color: 'aliceblue'},
+            {color: 'tomato'},
+            {color: 'orange'},
+            {color: 'khaki'},
+            {color: 'palegreen'},
+            {color: 'slategrey'},
+            {color: 'seashell'},
+            {color: 'deeppink'},
+            {color: 'gold'},
+            {color: 'yellow'},
+            {color: 'darkseagreen'},
             {color: 'black'},
             {color: 'white'}
           ]}

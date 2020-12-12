@@ -10,19 +10,25 @@ export interface Settings {
     location?: Location;
     activities: ActivityName[];
     background: string;
+    zenith: number;
 }
 
-let settings: Settings = {
+const defaultSettings: Settings = {
     useGps: false,
     activities: ["heart-rate", "steps", "floors"],
     background: "milky-way-bg.png",
+    zenith: 90.833,
 }
 
+let settings = undefined;
+
 if (fs.existsSync(SETTINGS_FILE)) {
-    settings = fs.readFileSync(SETTINGS_FILE, "cbor");
+    let readSettings = fs.readFileSync(SETTINGS_FILE, "cbor");
     console.log("Read local settings: " + JSON.stringify(settings));
+    settings = {...defaultSettings, readSettings};
 } else {
     console.log("Creating default settings");
+    settings = {...defaultSettings};
     fs.writeFileSync(SETTINGS_FILE, settings, "cbor");
 }
 
@@ -45,10 +51,15 @@ listenSettings((err, setting: CompanionResponse) => {
                 settings.activities[2] = activity;
             }
         } else if (setting.data.background) {
-                const activity = setting.data.background.values?.[0]?.value;
-                if (activity) {
-                    settings.background = activity;
-                }
+            const background = setting.data.background.values?.[0]?.value;
+            if (background) {
+                settings.background = background;
+            }
+        } else if (setting.data.zenith) {
+            const zenith = setting.data.zenith.values?.[0]?.value;
+            if (zenith) {
+                settings.zenith = parseInt(zenith);
+            }
         } else {
             settings = {...settings, ...setting.data};
         }
