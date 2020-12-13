@@ -35,11 +35,12 @@ function ClockSettings(props) {
           label="First activity"
           settingsKey="activity1"
           options={[
-            {name:"Heart Rate", value: "heart-rate"},
-            {name:"Steps", value: "steps"},
-            {name:"Floors", value: "floors"},
-            {name:"Distance", value: "distance"},
-            {name:"Calories", value: "energy"},
+            {name: "Heart Rate", value: "heart-rate"},
+            {name: "Steps", value: "steps"},
+            {name: "Floors", value: "floors"},
+            {name: "Distance", value: "distance"},
+            {name: "Calories", value: "energy"},
+            {name: "Active minutes", value: "zones"},
           ]}
         />
         <Select 
@@ -47,11 +48,12 @@ function ClockSettings(props) {
           label="Second activity"
           settingsKey="activity2"
           options={[
-            {name:"Steps", value: "steps"},
-            {name:"Floors", value: "floors"},
-            {name:"Distance", value: "distance"},
-            {name:"Calories", value: "energy"},
-            {name:"Heart Rate", value: "heart-rate"},
+            {name: "Heart Rate", value: "heart-rate"},
+            {name: "Steps", value: "steps"},
+            {name: "Floors", value: "floors"},
+            {name: "Distance", value: "distance"},
+            {name: "Calories", value: "energy"},
+            {name: "Active minutes", value: "zones"},
           ]}
         />
         <Select 
@@ -59,23 +61,29 @@ function ClockSettings(props) {
           label="Third activity"
           settingsKey="activity3"
           options={[
-            {name:"Floors", value: "floors"},
-            {name:"Distance", value: "distance"},
-            {name:"Calories", value: "energy"},
-            {name:"Heart Rate", value: "heart-rate"},
-            {name:"Steps", value: "steps"},
+            {name: "Heart Rate", value: "heart-rate"},
+            {name: "Steps", value: "steps"},
+            {name: "Floors", value: "floors"},
+            {name: "Distance", value: "distance"},
+            {name: "Calories", value: "energy"},
+            {name: "Active minutes", value: "zones"},
           ]}
         />
     </Section>
     <Section
-     description={<Text>Twilight Settings</Text>}
-     title={<Text bold align="center">Twilight Settings</Text>}>
+     description={<Text>Twilight Setting</Text>}
+     title={<Text bold align="center">Twilight Setting</Text>}>
+       <Text>Twilight setting allows you to adjust sunrise and
+             sunset event times to match the twilight. Selecting
+             the twilight makes the sunrise event happen earlier
+             and the sunset event later.
+       </Text>
        <Select
-        title="Sunrise/sunset happens at:"
+        title="Sunrise and sunset happens at:"
         label="Twilight"
         settingsKey="zenith"
         options={[
-          {name: "Sunrise/sunset", value: "90.883"},
+          {name: "Actual Sunrise & Sunset", value: "90.883"},
           {name: "Civil Twilight", value: "96"},
           {name: "Nautical Twilight", value: "102"},
           {name: "Astronomical Twilight", value: "108"}

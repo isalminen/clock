@@ -4,7 +4,7 @@ import { today } from "user-activity";
 import { BodyPresenceSensor } from "body-presence";
 import { display } from "display";
 
-export type ActivityName = "heart-rate" | "steps" | "floors" | "distance" | "energy" ;
+export type ActivityName = "heart-rate" | "steps" | "floors" | "distance" | "energy" | "zones" ;
 export type Activity = {
     name: ActivityName;
     value: number;
@@ -68,6 +68,13 @@ export function selectActivities(activities: [ActivityName, ActivityName, Activi
                 if (appbit.permissions.granted("access_activity") && 
                     today.local.elevationGain !== undefined) {
                         activity.value = today.adjusted.elevationGain;
+                }
+                break;
+            case "zones":
+                if (appbit.permissions.granted("access_activity") && 
+                    today.local.activeZoneMinutes.total !== undefined) {
+                        activity.value = today.adjusted.activeZoneMinutes.total;
+                        activity.unit = "min";
                 }
                 break;
             case "heart-rate":

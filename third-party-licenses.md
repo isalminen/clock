@@ -6,5 +6,6 @@
 # Icons
 - Icons made by <a href="https://www.flaticon.com/authors/those-icons" title="Those Icons">Those Icons</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
 
-# Sunrise and sunset calculations
-- Sunrise/sunset script. By Matt Kane. Adopted for NPM use by Alexey Udivankin. Licence LGPL
+# Sunset and Sunrise
+The sunset and sunrise calculations are based on Excel sheet functions in NOAA
+Solar Calculation Details: https://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html
