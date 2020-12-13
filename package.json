@@ -43,7 +43,5 @@
     "json",
     "node"
   ],
-  "dependencies": {
-    "sunrise-sunset-js": "2.1.2"
-  }
+  "dependencies": {}
 }
