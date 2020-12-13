@@ -21,10 +21,11 @@ be easily installed with the version 15. At least, for Windows without Windows b
 
 ## App UUID
 Remember to create your own app uuid and set it into the package.json.
+Run the command
 ```
-npx uuid
+npx fitbit-build generate-appid
 ```
-and then in the package.json
+and then check your package.json file which should have the new appUUID set:
 ```
   "fitbit": {
     "appUUID": "Your new app id goes here",
