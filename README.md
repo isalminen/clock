@@ -1,5 +1,9 @@
-# Work In Progress
+# Suntimes
 Simple Fitbit Sense/Versa 3 watch face
+
+# Fitbit Gallery
+The released and reviewe version is available from Fitbit Gallery
+https://gallery.fitbit.com/details/1cbec137-741f-4fd5-ad86-c3dd1e7672f0
 
 # Install
 You need Fitbit Developer account and the CLI SDK.

@@ -48,11 +48,11 @@ function ClockSettings(props) {
           label="Second activity"
           settingsKey="activity2"
           options={[
-            {name: "Heart Rate", value: "heart-rate"},
             {name: "Steps", value: "steps"},
             {name: "Floors", value: "floors"},
             {name: "Distance", value: "distance"},
             {name: "Calories", value: "energy"},
+            {name: "Heart Rate", value: "heart-rate"},
             {name: "Active minutes", value: "zones"},
           ]}
         />
@@ -61,11 +61,11 @@ function ClockSettings(props) {
           label="Third activity"
           settingsKey="activity3"
           options={[
-            {name: "Heart Rate", value: "heart-rate"},
-            {name: "Steps", value: "steps"},
             {name: "Floors", value: "floors"},
             {name: "Distance", value: "distance"},
             {name: "Calories", value: "energy"},
+            {name: "Heart Rate", value: "heart-rate"},
+            {name: "Steps", value: "steps"},
             {name: "Active minutes", value: "zones"},
           ]}
         />
