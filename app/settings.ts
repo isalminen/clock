@@ -6,11 +6,12 @@ import { listenSettings } from "./messaging";
 const SETTINGS_FILE = "settings.cbor";
 
 export interface Settings {
-    useGps: false,
+    useGps: boolean,
     location?: Location;
     activities: ActivityName[];
     background: string;
     zenith: number;
+    showRHR: boolean;
 }
 
 const defaultSettings: Settings = {
@@ -18,6 +19,7 @@ const defaultSettings: Settings = {
     activities: ["heart-rate", "steps", "floors"],
     background: "milky-way-bg.png",
     zenith: 90.833,
+    showRHR: false,
 }
 
 let settings = undefined;

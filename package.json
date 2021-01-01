@@ -10,7 +10,7 @@
     "typescript": "4.1.2"
   },
   "fitbit": {
-    "appUUID": "1cbec137-741f-4fd5-ad86-c3dd1e7672f0",
+    "appUUID": "e28781a0-4e57-4920-80b2-0c374ec24c34",
     "appType": "clockface",
     "appDisplayName": "Suntimes",
     "iconFile": "resources/icon.png",

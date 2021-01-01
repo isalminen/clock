@@ -3,11 +3,13 @@ import { me as appbit } from "appbit";
 import { today } from "user-activity";
 import { BodyPresenceSensor } from "body-presence";
 import { display } from "display";
+import { user } from "user-profile";
+import { getSetting } from "./settings";
 
 export type ActivityName = "heart-rate" | "steps" | "floors" | "distance" | "energy" | "zones" ;
 export type Activity = {
     name: ActivityName;
-    value: number;
+    value: number | string;
     unit?: string;
 }
 
@@ -85,7 +87,13 @@ export function selectActivities(activities: [ActivityName, ActivityName, Activi
                     });
                     hrm.start();
                 }
-                activity.value = latestHeartRate;
+                const showRHR = getSetting("showRHR");
+                if (showRHR) {
+                    const rhr = user.restingHeartRate;
+                    activity.value = `${latestHeartRate ? latestHeartRate : "--"}/${rhr ? rhr : "--"}`;
+                } else {
+                    activity.value = `${latestHeartRate ? latestHeartRate : "--"}`;
+                }
                 activity.unit = "bpm";
             default:
                 // nothing
