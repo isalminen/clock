@@ -38,7 +38,7 @@ function handleResponse(err: any, data: any): void {
         timer = undefined;
     }
     const item = messageQueue.shift();
-    if (item) {
+    if (item?.cb) {
         item.cb(err, data);
     }
     waitingResponse = false;

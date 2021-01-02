@@ -1,7 +1,7 @@
 import * as fs from "fs";
 import { CompanionResponse, Location } from "../common/types";
 import { ActivityName } from './activities';
-import { listenSettings } from "./messaging";
+import { listenSettings, send } from "./messaging";
 
 const SETTINGS_FILE = "settings.cbor";
 
@@ -12,6 +12,8 @@ export interface Settings {
     background: string;
     zenith: number;
     showRHR: boolean;
+    minutesColour: string;
+    hoursColour: string;
 }
 
 const defaultSettings: Settings = {
@@ -20,6 +22,8 @@ const defaultSettings: Settings = {
     background: "milky-way-bg.png",
     zenith: 90.833,
     showRHR: false,
+    hoursColour: "white",
+    minutesColour: "white",
 }
 
 let settings = undefined;
@@ -33,6 +37,9 @@ if (fs.existsSync(SETTINGS_FILE)) {
     settings = {...defaultSettings};
     fs.writeFileSync(SETTINGS_FILE, settings, "cbor");
 }
+
+// ask companion settings
+send({request: "settings"}, null);
 
 listenSettings((err, setting: CompanionResponse) => {
     console.log("Got the setting: " + JSON.stringify(setting));
