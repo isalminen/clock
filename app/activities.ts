@@ -4,7 +4,9 @@ import { today } from "user-activity";
 import { BodyPresenceSensor } from "body-presence";
 import { display } from "display";
 import { user } from "user-profile";
+import { units } from "user-settings";
 import { getSetting } from "./settings";
+import { meters2feet } from "../common/utils";
 
 export type ActivityName = "heart-rate" | "steps" | "floors" | "distance" | "energy" | "zones" ;
 export type Activity = {
@@ -56,8 +58,9 @@ export function selectActivities(activities: [ActivityName, ActivityName, Activi
             case "distance":
                 if (appbit.permissions.granted("access_activity") &&
                     today.adjusted.distance !== undefined) {
-                        activity.value = today.adjusted.distance;
-                        activity.unit = "m";
+                        activity.value = units.distance === "metric"
+                            ? today.adjusted.distance : meters2feet(today.adjusted.distance);
+                        activity.unit = units.distance === "metric" ? "meters" : "feet";
                 }
                 break;
             case "steps":
