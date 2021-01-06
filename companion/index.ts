@@ -17,14 +17,53 @@ function sendData(data: CompanionResponse) {
     }
 }
 
+function getSettings() {
+    const n = settingsStorage.length;
+    const settings = [];
+    for(let i = 0; i < n; ++i) {
+        const key = settingsStorage.key(i);
+        if (key) {
+            const val = settingsStorage.getItem(key);
+            if (val) {
+                // @todo: saner settings. Either they are JSON or not but not like this!
+                console.log(`${key}: ${val}`);
+                let jsonVal: any;
+                try {
+                    jsonVal = JSON.parse(val);
+                } catch(err) {
+                    jsonVal = val;
+                }
+                settings.push({[key]: jsonVal});
+            }
+        }
+    }
+    return settings;
+}
+
 messaging.peerSocket.onmessage = async (evt) => {
     console.log("Event: " + JSON.stringify(evt.data));
-    if (evt.data?.request === "location") {
-        console.log("Getting the current pos");
-        const pos = await getLocation();
-        if (pos) {
-            sendData(pos);
-        }
+    switch(evt.data?.request) {
+        case "location":
+            console.log("Getting the current pos");
+            const pos = await getLocation();
+            if (pos) {
+                sendData(pos);
+            }
+            break;
+        case "settings":
+            console.log("Getting all settings");
+            const settings = getSettings();
+            if (settings) {
+                settings.forEach((s) => {
+                    sendData({
+                        response: "setting",
+                        data: s
+                    });
+                });
+            }
+            break;
+        default:
+            // do nothing
     }
 };
 

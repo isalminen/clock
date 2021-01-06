@@ -1,2 +1,5 @@
+[core]
+  attributesfile = ~/.gitattributes
+
 [merge "ours"]
   driver = true

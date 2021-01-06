@@ -7,10 +7,10 @@ function ClockSettings(props) {
       title={<Text bold align="center">Location Settings</Text>}>
       <Text>
         You can set the fixed location by typing the name of the location or use 
-        the GPS of the phone. 
+        the GPS of the phone.
       </Text>
       <Text>
-        Note, that using the GPS does not work very well indoors and also consumes
+        Note using the GPS does not work very well indoors and also consumes
         the battery.
       </Text>
       <Toggle
@@ -30,12 +30,19 @@ function ClockSettings(props) {
     <Section
       description={<Text>Activities</Text>}
       title={<Text bold align="center">Activities</Text>}>
+        <Text>
+          Toggling the "Show resting HR" setting on makes heart rate activity
+          show also the resting heart rate with the current heart rate.
+        </Text>
+        <Toggle
+          settingsKey="showRHR"
+          label="Show resting HR:"/>
         <Select 
           title="First activity"
           label="First activity"
           settingsKey="activity1"
           options={[
-            {name: "Heart Rate", value: "heart-rate"},
+            {name: "Heart Rate/Resting Heart Rate", value: "heart-rate"},
             {name: "Steps", value: "steps"},
             {name: "Floors", value: "floors"},
             {name: "Distance", value: "distance"},
@@ -52,7 +59,7 @@ function ClockSettings(props) {
             {name: "Floors", value: "floors"},
             {name: "Distance", value: "distance"},
             {name: "Calories", value: "energy"},
-            {name: "Heart Rate", value: "heart-rate"},
+            {name: "Heart Rate/Resting Heart Rate", value: "heart-rate"},
             {name: "Active minutes", value: "zones"},
           ]}
         />
@@ -64,7 +71,7 @@ function ClockSettings(props) {
             {name: "Floors", value: "floors"},
             {name: "Distance", value: "distance"},
             {name: "Calories", value: "energy"},
-            {name: "Heart Rate", value: "heart-rate"},
+            {name: "Heart Rate/Resting Heart Rate", value: "heart-rate"},
             {name: "Steps", value: "steps"},
             {name: "Active minutes", value: "zones"},
           ]}

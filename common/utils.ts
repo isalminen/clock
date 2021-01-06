@@ -116,3 +116,7 @@ export function setBackground(bg: string) {
         el.href = bg;
     }
 }
+
+export function meters2feet(meters: number): number {
+    return Math.round(meters * 3.281);
+}
