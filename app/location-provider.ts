@@ -26,17 +26,18 @@ export class LocationProvider {
         return this.latestPos;
     }
 
+    public setLocation(loc: Location) {
+        this.latestPos = { ...loc };
+        this.lastPosUpdate = Date.now();
+    }
+
     private locationUpdated(response: CompanionResponse) {
+        console.log("Loc updated: " + JSON.stringify(response));
         if (response?.response === "location") {
             if (response.data?.coords) {
                 this.setLocation(response.data.coords);
             }
         }
-    }
-
-    private setLocation(loc: Location) {
-        this.latestPos = { ...loc };
-        this.lastPosUpdate = Date.now();
     }
 
     private subscribeToLocations() {
@@ -52,7 +53,7 @@ export class LocationProvider {
                 }
             });
         } else if (location) {
-            console.log("Using existing location");
+            console.log("Current loc: " + JSON.stringify(location));
             this.setLocation(location);
         }
         

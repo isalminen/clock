@@ -2,6 +2,7 @@ import * as fs from "fs";
 import { CompanionResponse, Location } from "../common/types";
 import { ActivityName } from './activities';
 import { listenSettings, send } from "./messaging";
+import { LocationProvider } from "./location-provider";
 
 const SETTINGS_FILE = "settings.cbor";
 
@@ -69,10 +70,19 @@ listenSettings((err, setting: CompanionResponse) => {
             if (zenith) {
                 settings.zenith = parseInt(zenith);
             }
+        } else if (setting.data.location) {
+            const location = setting.data.location;
+            settings.location = location;
+            console.log("Saving location: " + JSON.stringify(settings.location));
+            LocationProvider.getInstance().setLocation(location);
         } else {
             settings = {...settings, ...setting.data};
         }
-        fs.writeFileSync(SETTINGS_FILE, settings, "cbor");
+        try {
+            fs.writeFileSync(SETTINGS_FILE, settings, "cbor");
+        } catch (e) {
+            console.log("Can't save settings: " + JSON.stringify(e));
+        }
     }
 });
 
