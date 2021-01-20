@@ -28,6 +28,7 @@ function draw(time?: Date) {
   const activities = selectActivities(activeActivities);
   util.updateActivities(activities);
   const pos = LocationProvider.getInstance().getLatestPos();
+  console.log("Using pos: " + JSON.stringify(pos));
   if (pos) {
     sunEvents = getSunEvents(pos);
     util.setSuntimes(sunEvents);
