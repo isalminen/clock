@@ -13,8 +13,14 @@ export interface Geocode {
 
 export async function geocode(locationName: string): Promise<Geocode> {
     return new Promise(async (resolve, reject) => {
+        if (!locationName) {
+            console.log("No location given");
+            return reject("No location given");
+        }
+        console.log(`Geocode for: ${GEOCODE_URL}?qq=city=${locationName}&apiKey=${apikey}`);
         const locResponse = await fetch(`${GEOCODE_URL}?qq=city=${locationName}&apiKey=${apikey}`);
         if (!locResponse.ok) {
+            console.log("Geocode failed: " + JSON.stringify(locResponse));
             return reject(locResponse.statusText);
         }
         const locJSON = await locResponse.json();

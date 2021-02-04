@@ -112,8 +112,12 @@ async function getLocation(): Promise<CompanionResponse|undefined> {
 }
 
 settingsStorage.addEventListener("change", async (evt) => {
-    if (evt.key === "locationName" && evt.newValue !== lastGeocode?.label) {
-        lastGeocode = await geocode(evt.newValue);
+    console.log("Setting change: " + JSON.stringify(evt));
+    if (evt.key === "locationName") { // && evt.newValue?.name !== lastGeocode?.label) {
+        console.log("loc name change");
+        const newVal = JSON.parse(evt.newValue);
+        console.log("Name: " + newVal.name);
+        lastGeocode = await geocode(newVal?.name);
         saveGeocode(lastGeocode);
     }
     // prefetch the new gps pos
