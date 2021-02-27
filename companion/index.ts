@@ -113,7 +113,7 @@ async function getLocation(): Promise<CompanionResponse|undefined> {
 
 settingsStorage.addEventListener("change", async (evt) => {
     console.log("Setting change: " + JSON.stringify(evt));
-    if (evt.key === "locationName") {
+    if (evt.key === "locationName") { // && evt.newValue?.name !== lastGeocode?.label) {
         const newVal = JSON.parse(evt.newValue);
         console.log("Name: " + newVal.name);
         lastGeocode = await geocode(newVal?.name);

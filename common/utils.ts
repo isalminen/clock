@@ -18,18 +18,22 @@ export function formatDate(date: Date): string {
     const dayStr = `${date.getDate()}`;
     const monStr = gettext(months[date.getMonth()]);
     let suffix: string;
-    switch (dayStr[dayStr.length - 1]) {
-        case "1":
-            suffix = "st";
-            break;
-        case "2":
-            suffix = "nd";
-            break;
-        case "3":
-            suffix = "rd";
-            break;
-        default:
-            suffix = "th";
+    if (date.getDate() < 10 || date.getDate() >= 20) {
+        switch (dayStr[dayStr.length - 1]) {
+            case "1":
+                suffix = "st";
+                break;
+            case "2":
+                suffix = "nd";
+                break;
+            case "3":
+                suffix = "rd";
+                break;
+            default:
+                suffix = "th";
+        }
+    } else {
+        suffix = "th";
     }
     return `${weekday}, ${monStr} ${dayStr}${suffix}`;
 }
