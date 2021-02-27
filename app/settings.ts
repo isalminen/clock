@@ -29,10 +29,11 @@ const defaultSettings: Settings = {
 
 let settings = undefined;
 
+console.log("Init settings");
 if (fs.existsSync(SETTINGS_FILE)) {
     let readSettings = fs.readFileSync(SETTINGS_FILE, "cbor");
-    console.log("Read local settings: " + JSON.stringify(settings));
-    settings = {...defaultSettings, readSettings};
+    console.log("Read local settings: " + JSON.stringify(readSettings));
+    settings = {...defaultSettings, ...readSettings};
 } else {
     console.log("Creating default settings");
     settings = {...defaultSettings};
@@ -41,6 +42,7 @@ if (fs.existsSync(SETTINGS_FILE)) {
 
 // ask companion settings
 send({request: "settings"}, null);
+console.log("Init settings done");
 
 listenSettings((err, setting: CompanionResponse) => {
     console.log("Got the setting: " + JSON.stringify(setting));
@@ -79,6 +81,8 @@ listenSettings((err, setting: CompanionResponse) => {
             settings = {...settings, ...setting.data};
         }
         try {
+            console.log("Settings:");
+            console.log(JSON.stringify(settings));
             fs.writeFileSync(SETTINGS_FILE, settings, "cbor");
         } catch (e) {
             console.log("Can't save settings: " + JSON.stringify(e));
@@ -91,5 +95,6 @@ export function getSettings(): Settings {
 }
 
 export function getSetting(name: string): any | undefined {
+    // console.log(`setting ${name} = ${settings[name]}`);
     return settings[name];
 }
