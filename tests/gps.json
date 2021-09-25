@@ -1,0 +1,36 @@
+{
+    "items": [{
+        "title": "Tuomiokirkonkatu 22, FI-33100 Tampere, Suomi",
+        "id": "here:af:streetsection:dAqrOy2mz.w4PgUtYy983B:CggIBCD30MfxAhABGgIyMg",
+        "resultType": "houseNumber",
+        "houseNumberType": "PA",
+        "address": {
+            "label": "Tuomiokirkonkatu 22, FI-33100 Tampere, Suomi",
+            "countryCode": "FIN",
+            "countryName": "Suomi",
+            "stateCode": "SS",
+            "state": "Länsi- ja Sisä-Suomi",
+            "county": "Pirkanmaa",
+            "city": "Tampere",
+            "district": "Kyttälä",
+            "street": "Tuomiokirkonkatu",
+            "postalCode": "33100",
+            "houseNumber": "22"
+        },
+        "position": {
+            "lat": 61.50005,
+            "lng": 23.76926
+        },
+        "access": [{
+            "lat": 61.50007,
+            "lng": 23.76952
+        }],
+        "distance": 40,
+        "mapView": {
+            "west": 23.76907,
+            "south": 61.49476,
+            "east": 23.77139,
+            "north": 61.50149
+        }
+    }]
+}

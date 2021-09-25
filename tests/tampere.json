@@ -1,0 +1,34 @@
+{
+    "items": [{
+        "title": "Tampere, Länsi- ja Sisä-Suomi, Suomi",
+        "id": "here:cm:namedplace:20428883",
+        "resultType": "locality",
+        "localityType": "city",
+        "address": {
+            "label": "Tampere, Länsi- ja Sisä-Suomi, Suomi",
+            "countryCode": "FIN",
+            "countryName": "Suomi",
+            "stateCode": "SS",
+            "state": "Länsi- ja Sisä-Suomi",
+            "county": "Pirkanmaa",
+            "city": "Tampere",
+            "postalCode": "33100"
+        },
+        "position": {
+            "lat": 61.49844,
+            "lng": 23.77176
+        },
+        "mapView": {
+            "west": 23.54213,
+            "south": 61.42729,
+            "east": 24.11859,
+            "north": 61.83672
+        },
+        "scoring": {
+            "queryScore": 1.0,
+            "fieldScore": {
+                "city": 1.0
+            }
+        }
+    }]
+}
