@@ -6,6 +6,8 @@
   ],
   "compilerOptions": {
     "lib": ["ES2015"],
-    "typeRoots": ["./node_modules/@types", "./node_modules/fitbit-sdk-types/types"],
+    "typeRoots": ["./node_modules/@types", "./node_modules/fitbit-sdk-types/types", "./tests/types"],
+    "types": ["jest", "node"],
+    "resolveJsonModule": true
   }
 }
