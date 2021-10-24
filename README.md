@@ -1,5 +1,5 @@
 # Suntimes
-Simple Fitbit Sense/Versa 3 watch face
+Simple Fitbit Sense/Versa 3 watch face which shows some health statistics with a sunrise and sunset times based on wearer's location.
 
 # Fitbit Gallery
 The released and reviewe version is available from Fitbit Gallery
