@@ -159,8 +159,17 @@ function ClockSettings(props) {
             {name:"Starry sky", value: "starry-bg.png"},
             {name:"Black texture", value: "black-bg.png"},
             {name:"Milky Way", value: "milky-way-bg.png"},
+            {name:"Use your own image", value: "__own_image__"},
           ]}
         />
+        <ImagePicker
+          title="Image Picker"
+          description="Choose your own image for the background"
+          label="Pick an Image"
+          settingsKey="ownImage"
+          imageWidth="336"
+          imageHeight="336"
+        />        
     </Section>
     </Page>
   );

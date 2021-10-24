@@ -20,19 +20,19 @@
              x="0%" y="0%" width="100%" height="33%">
         <image href="heart-rate.png" id="sensor1_icon" class="icon sensoricon"/>
         <text id="sensor1" class="sensor_data"
-              x="$+15" y="50%" width="100%-45" height="100%-35" />
+              x="$+10" y="50%" width="100%-45" height="100%-35" />
       </section>
       <section class="sensor_data" id="sensor2g"
                x="0%" y="$" width="100%" height="33%">
         <image href="steps.png" id="sensor2_icon" class="icon sensoricon"/>
         <text id="sensor2" class="sensor_data"
-              x="$+15" y="50%" width="100%-45" height="100%-35"/>
+              x="$+10" y="50%" width="100%-45" height="100%-35"/>
       </section>
       <section class="sensor_data" id="sensor3g"
                x="0%" y="$" width="100%" height="33%">
         <image href="floors.png" id="sensor3_icon"  class="icon sensoricon"/>
         <text id="sensor3" class="sensor_data"
-              x="$+15" y="50%" width="100%-45" height="100%-35"/>
+              x="$+10" y="50%" width="100%-45" height="100%-35"/>
       </section>
     </section>
   </section>

@@ -6,6 +6,8 @@ import { LocationProvider } from "./location-provider";
 
 const SETTINGS_FILE = "settings.cbor";
 
+export const OWN_IMAGE = "__own_image__";
+
 export interface Settings {
     useGps: boolean,
     location?: Location;
@@ -15,6 +17,7 @@ export interface Settings {
     showRHR: boolean;
     minutesColour: string;
     hoursColour: string;
+    ownImage?: string;
 }
 
 const defaultSettings: Settings = {
@@ -37,6 +40,12 @@ if (fs.existsSync(SETTINGS_FILE)) {
 } else {
     console.log("Creating default settings");
     settings = {...defaultSettings};
+    fs.writeFileSync(SETTINGS_FILE, settings, "cbor");
+}
+
+const saveSettings = () => {
+    console.log("Saving settings:");
+    console.log(JSON.stringify(settings));
     fs.writeFileSync(SETTINGS_FILE, settings, "cbor");
 }
 
@@ -67,6 +76,19 @@ listenSettings((err, setting: CompanionResponse) => {
             if (background) {
                 settings.background = background;
             }
+        } else if (setting.data.ownImage) {
+            const ownImage = setting.data.ownImage;
+            if (ownImage) {
+                if (settings.ownImage) {
+                    console.log("Removing the old image: " + settings.ownImage);
+                    try {
+                        fs.unlinkSync(settings.ownImage);
+                    } catch(e) {
+                        console.log(e.message);
+                    }
+                }
+                settings.ownImage = ownImage;
+            }
         } else if (setting.data.zenith) {
             const zenith = setting.data.zenith.values?.[0]?.value;
             if (zenith) {
@@ -81,9 +103,7 @@ listenSettings((err, setting: CompanionResponse) => {
             settings = {...settings, ...setting.data};
         }
         try {
-            console.log("Settings:");
-            console.log(JSON.stringify(settings));
-            fs.writeFileSync(SETTINGS_FILE, settings, "cbor");
+            saveSettings();
         } catch (e) {
             console.log("Can't save settings: " + JSON.stringify(e));
         }

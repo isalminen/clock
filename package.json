@@ -1,6 +1,6 @@
 {
   "name": "clock",
-  "version": "0.3.6",
+  "version": "0.3.8",
   "private": true,
   "license": "GPL-2.0-or-later",
   "devDependencies": {
