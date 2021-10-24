@@ -17,6 +17,8 @@ export interface Settings {
     showRHR: boolean;
     minutesColour: string;
     hoursColour: string;
+    sensorDataColour: string;
+    statusColour: string;
     ownImage?: string;
 }
 
@@ -27,6 +29,8 @@ const defaultSettings: Settings = {
     zenith: 90.833,
     showRHR: false,
     hoursColour: "white",
+    sensorDataColour: "white",
+    statusColour: "white",
     minutesColour: "white",
 }
 
@@ -54,7 +58,7 @@ send({request: "settings"}, null);
 console.log("Init settings done");
 
 listenSettings((err, setting: CompanionResponse) => {
-    console.log("Got the setting: " + JSON.stringify(setting));
+    //console.log("Got the setting: " + JSON.stringify(setting));
     if (setting?.data) {
         if (setting.data.activity1) {
             const activity = setting.data.activity1.values?.[0]?.value;

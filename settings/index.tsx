@@ -146,6 +146,54 @@ function ClockSettings(props) {
             {color: 'black'},
             {color: 'white'}
           ]}
+        />        
+        <Text>Activity colour:</Text>
+        <ColorSelect
+          settingsKey="sensorDataColour"
+          colors={[
+            {color: 'firebrick'},
+            {color: 'peachpuff'},
+            {color: 'lightgoldenrodyellow'},
+            {color: 'aquamarine'},
+            {color: 'rosybrown'},
+            {color: 'aliceblue'},
+            {color: 'tomato'},
+            {color: 'orange'},
+            {color: 'khaki'},
+            {color: 'palegreen'},
+            {color: 'slategrey'},
+            {color: 'seashell'},
+            {color: 'deeppink'},
+            {color: 'gold'},
+            {color: 'yellow'},
+            {color: 'darkseagreen'},
+            {color: 'black'},
+            {color: 'white'}
+          ]}
+        />
+        <Text>Status (date, sunset, sunrise and battery) colour:</Text>
+        <ColorSelect
+          settingsKey="statusColour"
+          colors={[
+            {color: 'firebrick'},
+            {color: 'peachpuff'},
+            {color: 'lightgoldenrodyellow'},
+            {color: 'aquamarine'},
+            {color: 'rosybrown'},
+            {color: 'aliceblue'},
+            {color: 'tomato'},
+            {color: 'orange'},
+            {color: 'khaki'},
+            {color: 'palegreen'},
+            {color: 'slategrey'},
+            {color: 'seashell'},
+            {color: 'deeppink'},
+            {color: 'gold'},
+            {color: 'yellow'},
+            {color: 'darkseagreen'},
+            {color: 'black'},
+            {color: 'white'}
+          ]}
         />
     </Section>
     <Section

@@ -55,6 +55,15 @@ export function setUIElementText(id: string, value: string) {
         }
     }
 }
+
+export function setClassColour(className: string, colour: string) {
+    const elems = document.getElementsByClassName(className);
+    elems.forEach((el: any) => {
+        if (el.style) {
+            el.style.fill = colour;
+        }
+    });
+}
   
 export function lengthToHrMin(duration: number): string {
     const hrs = Math.floor(duration / 3600000);

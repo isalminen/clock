@@ -2,7 +2,7 @@
   <image id="background" href="milky-way-bg.png" />
   <section id="date_view"
            x="0" y="0" width="100%" height="10%">
-    <text id="date"
+    <text id="date" class="status_text"
           x="50%" y="50%+10" width="100%" height="100%" />
   </section>
   <section id="main_view"
@@ -18,19 +18,19 @@
              x="$" y="20" width="50%" height="100%">
       <section class="sensor_data" id="sensor1g"
              x="0%" y="0%" width="100%" height="33%">
-        <image href="heart-rate.png" id="sensor1_icon" class="icon sensoricon"/>
+        <image href="heart-rate.png" id="sensor1_icon" class="icon sensoricon sensor_data"/>
         <text id="sensor1" class="sensor_data"
               x="$+10" y="50%" width="100%-45" height="100%-35" />
       </section>
       <section class="sensor_data" id="sensor2g"
                x="0%" y="$" width="100%" height="33%">
-        <image href="steps.png" id="sensor2_icon" class="icon sensoricon"/>
+        <image href="steps.png" id="sensor2_icon" class="icon sensoricon sensor_data"/>
         <text id="sensor2" class="sensor_data"
               x="$+10" y="50%" width="100%-45" height="100%-35"/>
       </section>
       <section class="sensor_data" id="sensor3g"
                x="0%" y="$" width="100%" height="33%">
-        <image href="floors.png" id="sensor3_icon"  class="icon sensoricon"/>
+        <image href="floors.png" id="sensor3_icon"  class="icon sensoricon sensor_data"/>
         <text id="sensor3" class="sensor_data"
               x="$+10" y="50%" width="100%-45" height="100%-35"/>
       </section>
@@ -40,28 +40,28 @@
            x="0" y="$" width="100%" height="10%">
     <section id="sunlabels"
              x="0" y="15" width="100%" height="10">
-      <text id="time_left_label" class="sun_label"
+      <text id="time_left_label" class="sun_label status_text"
              x="50%" y="50%" width="100%" height="100%"/>
     </section>
     <section id="sunevents"
              x="0" y="$-15" width="100%" height="100%-10">
-      <image href="sunrise.png" id="leftsunicon" 
+      <image href="sunrise.png" id="leftsunicon" class="status_text"
              x="10" y="0" width="35" height="35"/>
-      <text id="leftsuntime" 
+      <text id="leftsuntime" class="status_text"
             x="$+10" y="50%+15" width="20%" height="100%"/>
-      <text id="daynightlength"
+      <text id="daynightlength" class="status_text"
             x="$+15" y="50%+15" width="28%" height="100%"/>
-      <text id="rightsuntime"
+      <text id="rightsuntime" class="status_text"
             x="$+5" y="50%+15" width="15%" height="100%"/>
-      <image href="sunset.png" id="rightsunicon"
+      <image href="sunset.png" id="rightsunicon" class="status_text"
             x="$+5" y="0" width="35" height="35"/>
     </section>
   </section>
   <section id="battery"
            x="0" y="$+15" width="100%" height="10%">
-    <image id="battery_icon" class="battery_icon" href="battery-full.png"
+    <image id="battery_icon" class="battery_icon status_text" href="battery-full.png"
            x="50%-37" y="0" width="37" height="25"/>
-    <text id="battery_value"
+    <text id="battery_value" class="status_text"
           x="$+10" y="50%+5" width="80%" height="100%"/>
   </section>
 </svg>

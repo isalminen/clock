@@ -1,6 +1,6 @@
 {
   "name": "clock",
-  "version": "0.3.8",
+  "version": "0.3.8-beta",
   "private": true,
   "license": "GPL-2.0-or-later",
   "devDependencies": {
@@ -14,9 +14,9 @@
     "typescript": "4.1.2"
   },
   "fitbit": {
-    "appUUID": "1cbec137-741f-4fd5-ad86-c3dd1e7672f0",
+    "appUUID": "e28781a0-4e57-4920-80b2-0c374ec24c34",
     "appType": "clockface",
-    "appDisplayName": "Suntimes",
+    "appDisplayName": "Suntimes Beta",
     "iconFile": "resources/icon.png",
     "wipeColor": "#ffffff",
     "buildTargets": [

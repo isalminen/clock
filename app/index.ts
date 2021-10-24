@@ -35,6 +35,7 @@ function draw(time?: Date) {
   const activeActivities = getSetting("activities");
   const activities = selectActivities(activeActivities);
   util.updateActivities(activities);
+  util.setClassColour("sensor_data", getSetting("sensorDataColour"));
   const pos = LocationProvider.getInstance().getLatestPos();
   console.log("Using pos: " + JSON.stringify(pos));
   if (pos) {
@@ -44,6 +45,7 @@ function draw(time?: Date) {
     util.setUIElementText("daynightlength",  gettext("No_location"));
   }
   util.setBattery(battery.chargeLevel, battery.charging);
+  util.setClassColour("status_text", getSetting("statusColour"));
 }
 
 // Update the clock every minute

@@ -28,7 +28,7 @@ function getSettings() {
             const val = settingsStorage.getItem(key);
             if (val) {
                 // @todo: saner settings. Either they are JSON or not but not like this!
-                console.log(`${key}: ${val}`);
+                console.log(`${key}`);
                 let jsonVal: any;
                 try {
                     jsonVal = JSON.parse(val);
