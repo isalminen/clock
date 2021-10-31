@@ -1,4 +1,5 @@
 import * as messaging from "messaging";
+import { inbox } from "file-transfer";
 import { CompanionRequest, CompanionResponse } from "../common/types";
 
 const TIMEOUT = 60 * 1000; // wait max a minute for a response
@@ -61,6 +62,21 @@ messaging.peerSocket.addEventListener("error", (err) => {
     console.log("Conn error: " + JSON.stringify(err));
     handleResponse(err, null);
 });
+
+inbox.onnewfile = () => {
+    console.log("Got a new file transfer");
+    let fileName: string;
+    do {
+        fileName = inbox.nextFile();
+        if (fileName) {
+            console.log("New bg image saved: " + fileName);
+            handleSetting({
+                response: "setting",
+                data: {ownImage: fileName}
+            })
+      }
+    } while (fileName);
+};
 
 export function send(msg: CompanionRequest, cb: Callback): void {
     const size = messageQueue.unshift({msg, cb});

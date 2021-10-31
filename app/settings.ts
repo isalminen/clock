@@ -6,6 +6,8 @@ import { LocationProvider } from "./location-provider";
 
 const SETTINGS_FILE = "settings.cbor";
 
+export const OWN_IMAGE = "__own_image__";
+
 export interface Settings {
     useGps: boolean,
     location?: Location;
@@ -15,6 +17,9 @@ export interface Settings {
     showRHR: boolean;
     minutesColour: string;
     hoursColour: string;
+    sensorDataColour: string;
+    statusColour: string;
+    ownImage?: string;
 }
 
 const defaultSettings: Settings = {
@@ -24,6 +29,8 @@ const defaultSettings: Settings = {
     zenith: 90.833,
     showRHR: false,
     hoursColour: "white",
+    sensorDataColour: "white",
+    statusColour: "white",
     minutesColour: "white",
 }
 
@@ -40,12 +47,18 @@ if (fs.existsSync(SETTINGS_FILE)) {
     fs.writeFileSync(SETTINGS_FILE, settings, "cbor");
 }
 
+const saveSettings = () => {
+    console.log("Saving settings:");
+    console.log(JSON.stringify(settings));
+    fs.writeFileSync(SETTINGS_FILE, settings, "cbor");
+}
+
 // ask companion settings
 send({request: "settings"}, null);
 console.log("Init settings done");
 
 listenSettings((err, setting: CompanionResponse) => {
-    console.log("Got the setting: " + JSON.stringify(setting));
+    //console.log("Got the setting: " + JSON.stringify(setting));
     if (setting?.data) {
         if (setting.data.activity1) {
             const activity = setting.data.activity1.values?.[0]?.value;
@@ -67,6 +80,19 @@ listenSettings((err, setting: CompanionResponse) => {
             if (background) {
                 settings.background = background;
             }
+        } else if (setting.data.ownImage) {
+            const ownImage = setting.data.ownImage;
+            if (ownImage) {
+                if (settings.ownImage) {
+                    console.log("Removing the old image: " + settings.ownImage);
+                    try {
+                        fs.unlinkSync(settings.ownImage);
+                    } catch(e) {
+                        console.log(e.message);
+                    }
+                }
+                settings.ownImage = ownImage;
+            }
         } else if (setting.data.zenith) {
             const zenith = setting.data.zenith.values?.[0]?.value;
             if (zenith) {
@@ -81,9 +107,7 @@ listenSettings((err, setting: CompanionResponse) => {
             settings = {...settings, ...setting.data};
         }
         try {
-            console.log("Settings:");
-            console.log(JSON.stringify(settings));
-            fs.writeFileSync(SETTINGS_FILE, settings, "cbor");
+            saveSettings();
         } catch (e) {
             console.log("Can't save settings: " + JSON.stringify(e));
         }

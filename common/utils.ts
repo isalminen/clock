@@ -55,6 +55,15 @@ export function setUIElementText(id: string, value: string) {
         }
     }
 }
+
+export function setClassColour(className: string, colour: string) {
+    const elems = document.getElementsByClassName(className);
+    elems.forEach((el: any) => {
+        if (el.style) {
+            el.style.fill = colour;
+        }
+    });
+}
   
 export function lengthToHrMin(duration: number): string {
     const hrs = Math.floor(duration / 3600000);
@@ -121,6 +130,23 @@ export function setBackground(bg: string) {
     }
 }
 
+export function round(n: number, decimals: number): number {
+    const scale = Math.pow(10, decimals);
+    return Math.round(n * scale) / scale;
+}
+
+export function scaleDistance(dist: number, unit: "m" | "ft", threshold: number): { value: string, unit: string } {
+    let newUnit: string = unit;
+    let val = dist;
+    if ( dist > threshold) {
+        val = unit === "m" ? val / 1000 : val / 5280; // 1 mile === 5280 feet
+        newUnit = unit === "m" ? "km" : "miles";
+    }
+    return {
+        value: dist <= threshold ? "" + val : Number(val).toFixed(2),
+        unit: newUnit,
+    }
+}
 export function meters2feet(meters: number): number {
     return Math.round(meters * 3.281);
 }

@@ -6,7 +6,13 @@ import { display } from "display";
 import { user } from "user-profile";
 import { units } from "user-settings";
 import { getSetting } from "./settings";
-import { meters2feet } from "../common/utils";
+import { scaleDistance } from "../common/utils";
+
+// distances bigger than this in m (or feet) are converted to kms (miles)
+const DISTANCE_SCALE_THRESHOLDS = {
+    feet: 5810, 
+    meters: 2010,
+}
 
 export type ActivityName = "heart-rate" | "steps" | "floors" | "distance" | "energy" | "zones" ;
 export type Activity = {
@@ -58,9 +64,11 @@ export function selectActivities(activities: [ActivityName, ActivityName, Activi
             case "distance":
                 if (appbit.permissions.granted("access_activity") &&
                     today.adjusted.distance !== undefined) {
-                        activity.value = units.distance === "metric"
-                            ? today.adjusted.distance : meters2feet(today.adjusted.distance);
-                        activity.unit = units.distance === "metric" ? "meters" : "feet";
+                        const val = units.distance === "metric"
+                            ? scaleDistance(today.adjusted.distance, "m", DISTANCE_SCALE_THRESHOLDS.meters) : 
+                              scaleDistance(today.adjusted.distance, "ft", DISTANCE_SCALE_THRESHOLDS.feet);
+                        activity.value = `${val.value}${val.unit}`;
+                        activity.unit = val.unit;
                 }
                 break;
             case "steps":

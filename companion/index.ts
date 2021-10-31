@@ -3,6 +3,8 @@ import { geolocation } from "geolocation";
 import { settingsStorage } from "settings";
 import { CompanionResponse } from "../common/types";
 import { Geocode, geocode, revGeocode } from "./geocode";
+import { Image } from "image";
+import { outbox } from "file-transfer";
 
 const TIMEOUT = 50 * 1000;
 const MAX_AGE = 3600 * 1000;
@@ -26,7 +28,7 @@ function getSettings() {
             const val = settingsStorage.getItem(key);
             if (val) {
                 // @todo: saner settings. Either they are JSON or not but not like this!
-                console.log(`${key}: ${val}`);
+                console.log(`${key}`);
                 let jsonVal: any;
                 try {
                     jsonVal = JSON.parse(val);
@@ -55,6 +57,9 @@ messaging.peerSocket.onmessage = async (evt) => {
             const settings = getSettings();
             if (settings) {
                 settings.forEach((s) => {
+                    if (s.ownImage) {
+                        return;
+                    }
                     sendData({
                         response: "setting",
                         data: s
@@ -112,7 +117,7 @@ async function getLocation(): Promise<CompanionResponse|undefined> {
 }
 
 settingsStorage.addEventListener("change", async (evt) => {
-    console.log("Setting change: " + JSON.stringify(evt));
+    //console.log("Setting change: " + JSON.stringify(evt));
     if (evt.key === "locationName") { // && evt.newValue?.name !== lastGeocode?.label) {
         const newVal = JSON.parse(evt.newValue);
         console.log("Name: " + newVal.name);
@@ -129,6 +134,16 @@ settingsStorage.addEventListener("change", async (evt) => {
           console.log(err);
         },
         {timeout: TIMEOUT, maximumAge: MAX_AGE});
+    }
+
+    if (evt.key === "ownImage") {
+        console.log("Transferring own image");
+        const imageData = JSON.parse(evt.newValue);
+        const img = await Image.from(imageData.imageUri);
+        const imgBuffer = await img.export("image/jpeg");
+        await outbox.enqueue(`${Date.now()}.jpg`, imgBuffer);
+        console.log("Image enqueued for the transfer");
+        return;
     }
     sendData({
         response: "setting",

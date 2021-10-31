@@ -45,6 +45,8 @@
 }
 
 .sensor_data{
+  font-size: 30;
+  font-family: System-Regular;
   text-length: 12;
   text-anchor: start;
   fill: white;
