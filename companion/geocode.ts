@@ -44,8 +44,8 @@ export async function revGeocode(lat: number, lon: number): Promise<Geocode> {
             return reject(locResponse.statusText);
         }
         const locJSON = await locResponse.json();
-        console.log(locJSON);
-        const locName = locJSON.items?.[0]?.title;
+        console.log(JSON.stringify(locJSON));
+        const locName = locJSON.items?.[0].address.label || locJSON.items?.[0]?.title || "Unknown place";
         return resolve({
             label: locName,
             coords: {

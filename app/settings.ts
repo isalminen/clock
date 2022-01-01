@@ -9,7 +9,7 @@ const SETTINGS_FILE = "settings.cbor";
 export const OWN_IMAGE = "__own_image__";
 
 export interface Settings {
-    useGps: boolean,
+    useGPS: boolean,
     location?: Location;
     activities: ActivityName[];
     background: string;
@@ -23,7 +23,7 @@ export interface Settings {
 }
 
 const defaultSettings: Settings = {
-    useGps: false,
+    useGPS: false,
     activities: ["heart-rate", "steps", "floors"],
     background: "milky-way-bg.png",
     zenith: 90.833,
@@ -58,7 +58,7 @@ send({request: "settings"}, null);
 console.log("Init settings done");
 
 listenSettings((err, setting: CompanionResponse) => {
-    //console.log("Got the setting: " + JSON.stringify(setting));
+    console.log("Settings: got this setting: " + JSON.stringify(setting));
     if (setting?.data) {
         if (setting.data.activity1) {
             const activity = setting.data.activity1.values?.[0]?.value;
@@ -104,6 +104,8 @@ listenSettings((err, setting: CompanionResponse) => {
             console.log("Saving location: " + JSON.stringify(settings.location));
             LocationProvider.getInstance().setLocation(location);
         } else {
+            console.log("Updating setting");
+            console.log(JSON.stringify({...setting.data}));
             settings = {...settings, ...setting.data};
         }
         try {
