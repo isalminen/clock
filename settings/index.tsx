@@ -9,10 +9,6 @@ function ClockSettings(props) {
         You can set the fixed location by typing the name of the location or use 
         the GPS of the phone.
       </Text>
-      <Text>
-        Note using the GPS does not work very well indoors and also consumes
-        the battery.
-      </Text>
       <Toggle
         settingsKey="useGPS"
         label="Use GPS for the location:"/>

@@ -86,6 +86,7 @@ async function getLocation(): Promise<CompanionResponse|undefined> {
         const useGPS = settingsStorage.getItem("useGPS");
     
         if (useGPS === "true") {
+            console.log("Companion: Asking GPS pos");
             geolocation.getCurrentPosition(async (pos) => {
                 console.log("Sending back the current location: " + JSON.stringify(pos));
                 const revGeo = await revGeocode(pos.coords.latitude, pos.coords.longitude);

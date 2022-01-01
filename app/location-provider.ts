@@ -41,8 +41,9 @@ export class LocationProvider {
     }
 
     private subscribeToLocations() {
-        const { useGps, location } = getSettings();
-        if (useGps || !location) {
+        console.log("Asking location");
+        const { useGPS, location } = getSettings();
+        if (useGPS || !location) {
             console.log("Asking a location from the companion");
             send({request: "location"}, (err, loc) => {
                 if (err) {
@@ -53,7 +54,7 @@ export class LocationProvider {
                 }
             });
         } else if (location) {
-            console.log("Current loc: " + JSON.stringify(location));
+            console.log("Current loc from the settings: " + JSON.stringify(location));
             this.setLocation(location);
         }
         
